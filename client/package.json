@@ -1,0 +1,9 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "description": "client",
+  "main": "app.js",
+  "author": {
+    "name": "natha"
+  }
+}

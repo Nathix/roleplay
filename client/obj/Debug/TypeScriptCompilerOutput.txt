@@ -1,0 +1,6 @@
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\client\types-gtanetwork\Enums.js
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\client\Main.js
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\client\build.js
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\client\build.js
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\client\build.js
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\client\build.js

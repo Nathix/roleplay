@@ -1,0 +1,9 @@
+﻿<meta>
+  <info name="Roleplay" author="Nathan 'Unix'" type="script" />
+
+  <script src="server/Main.cs" type="server" lang="csharp" />
+  
+  <script src="client/build.js" type="client" lang="javascript" />
+
+  <file src="client/resources/boilerplate.html" />
+</meta>
