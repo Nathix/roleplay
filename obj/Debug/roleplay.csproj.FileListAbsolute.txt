@@ -1,6 +1,0 @@
-C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\bin\Debug\roleplay.dll
-C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\bin\Debug\roleplay.pdb
-C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\bin\Debug\GTANetworkServer.exe
-C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\bin\Debug\GTANetworkShared.dll
-C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\obj\Debug\roleplay.dll
-C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\obj\Debug\roleplay.pdb
