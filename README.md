@@ -4,15 +4,22 @@ Roleplay gamemode.
 # TODO
 * Money system (pocket / bank / savings?)
 * Jobs
-	* Trucker
-	* Taxi
-	* Pilot(?)
-	* Money transporter
-	* Fisherman
-	* Police
-	* Medic / Fire fighter - Same thing in some American States
-	* Some government jobs dont know any tbh. Could be like health inspection or some shit idk.
-	* Criminal - Gangs/families, material running, weapon crafting
+	* Salary based on work
+	* Job Ideas:
+		* Trucker
+		* Pilot(?)
+		* Money transporter
+		* Fisherman
+		* Some government jobs dont know any tbh. Could be like health inspection or some shit idk.
+* Factions
+	* Hourly salary if on duty
+	* Different ranks (dynamic)
+	* Different vehicles (dynamic)
+	* Faction Ideas:
+		* Police
+		* Paramedic / Fire dept (same thing in america afaik)
+		* Criminal - Gangs/families, material running, weapon crafting
+		* Taxi
 * Ability to buy houses
 	* Different ranks (Cheap/moderate/expensive)
 * Ability to buy businesses
