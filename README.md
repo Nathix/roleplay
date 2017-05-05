@@ -11,6 +11,7 @@ Roleplay gamemode.
 		* Money transporter
 		* Fisherman
 		* Some government jobs dont know any tbh. Could be like health inspection or some shit idk.
+		* Harbor worker, control the container mover vehicle and places it on trucks and shit. and organizes the containers..
 * Factions
 	* Hourly salary if on duty
 	* Different ranks (dynamic)
