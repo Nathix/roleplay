@@ -18,15 +18,14 @@
             API.waitUntilCefBrowserInit(this.browser);
             API.setCefBrowserPosition(this.browser, 0, 0);
             API.loadPageCefBrowser(this.browser, this.path);
-            API.showCursor(true);
+            API.showCursor(!API.isCursorShown());
         }
     }
 
     hide() {
         this.open = false;
         API.destroyCefBrowser(this.browser);
-        API.showCursor(false);
-        API.sendChatMessage("should hide");
+        API.showCursor(!API.isCursorShown());
     }
 
     eval(string) {
