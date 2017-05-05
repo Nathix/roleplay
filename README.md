@@ -11,9 +11,9 @@ Roleplay gamemode.
 	* Lifeguard
 	* Police
 	* Fire fighter(?)
-	* Ability to buy houses
-	* Some form of government
+	* Some government jobs dont know any tbh. Could be like health inspection or some shit idk.
 	* Criminal(?)
+* Ability to buy houses
 * Car dealerships
 * Fuel(?)
 * User registration system
