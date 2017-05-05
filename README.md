@@ -1,7 +1,7 @@
 # Roleplay - (Zurio?)
 Roleplay gamemode.
 
-#TODO
+# TODO
 * Money system
 * Jobs
 	* Trucker
