@@ -1,4 +1,6 @@
-﻿var res = API.getScreenResolution();
+﻿/// <reference path="types-gtanetwork/index.d.ts" />
+
+var res = API.getScreenResolution();
 
 API.onUpdate.connect(function () {
     var player = API.getLocalPlayer();

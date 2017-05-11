@@ -7,5 +7,4 @@
 
   <file src="client/resources/boilerplate.html" />
 
-  <script src="client/speedometer.js" type="client" lang="javascript" />
 </meta>
