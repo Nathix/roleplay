@@ -2,9 +2,14 @@
   <info name="Roleplay" author="Nathan 'Unix'" type="script" />
 
   <script src="server/Main.cs" type="server" lang="csharp" />
+  <script src="server/Class1.cs" type="server" lang="csharp" />
+  <script src="server/GtaOnline.cs" type="server" lang="csharp" />
   
   <script src="client/build.js" type="client" lang="javascript" />
 
   <file src="client/resources/boilerplate.html" />
+
+  <assembly ref="System.Xml.dll" />
+  <assembly ref="System.Xml.Linq.dll" />
 
 </meta>
