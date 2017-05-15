@@ -1,5 +1,6 @@
 ﻿/// <reference path="types-gtanetwork/index.d.ts" />
 /// <reference path="libs/CefHelper.ts" />
+/// <reference path="speedometer.ts" />
 
 var cef = null;
 

@@ -1,2 +1,4 @@
 C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\client\obj\Debug\roleplay client.njsprojResolveAssemblyReference.cache
 C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\client\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Users\Nathan\Desktop\GTA-N\resources\roleplay\client\obj\Debug\roleplay client.njsprojResolveAssemblyReference.cache
+C:\Users\Nathan\Desktop\GTA-N\resources\roleplay\client\bin\Microsoft.NodejsTools.WebRole.dll
