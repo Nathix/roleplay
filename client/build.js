@@ -1,5 +1,4 @@
 "use strict";
-"use strict";
 var CefHelper = (function () {
     function CefHelper(resourcePath) {
         this.resourcePath = resourcePath;
@@ -30,45 +29,48 @@ var CefHelper = (function () {
     };
     return CefHelper;
 }());
-/// <reference path="types-gtanetwork/index.d.ts" />
-"use strict";
-var res = API.getScreenResolution();
-API.onUpdate.connect(function () {
-    var player = API.getLocalPlayer();
-    var inveh = API.isPlayerInAnyVehicle(player);
-    if (inveh) {
-        var veh = API.getPlayerVehicle(player);
-        if (API.getPlayerVehicleSeat(player) == -1) {
-            var vel = API.getEntityVelocity(player);
-            var speed = Math.sqrt(vel.X * vel.X +
-                vel.Y * vel.Y +
-                vel.Z * vel.Z);
-            var vehHealth = Math.round(API.getVehicleHealth(veh) / 10);
-            var vehClass = API.getVehicleClass(API.getEntityModel(veh));
-            switch (vehClass) {
-                case 14: // Boats
-                case 15: // Helicopters
-                case 16:
-                    var speedInKnots = Math.round(speed * 1.9438477170141); // Knots for Air/Water vehicles
-                    API.drawText(speedInKnots.toString(), 345, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-                    API.drawText("Kts", 470, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-                    break;
-                default:
-                    var speedInMph = Math.round(speed * 2.23694); // MPH because we are in America
-                    API.drawText(speedInMph.toString(), 345, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-                    API.drawText("MPH", 470, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-                    break;
-            }
-            API.drawText(vehHealth + "", 345, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-            API.drawText("% health", 470, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-        }
+/// <reference path="../types-gtanetwork/index.d.ts" />
+var HUD = (function () {
+    function HUD() {
     }
-});
+    HUD.prototype.showSpeed = function () {
+        this.getPlayer = API.getLocalPlayer();
+        this.playerInVehicle = API.isPlayerInAnyVehicle(this.getPlayer);
+        if (this.playerInVehicle) {
+            this.getVehicle = API.getPlayerVehicle(this.getPlayer);
+            if (API.getPlayerVehicleSeat(this.getPlayer) == -1) {
+                this.getVelocity = API.getEntityVelocity(this.getPlayer);
+                this.speed = Math.sqrt(this.getVelocity.X * this.getVelocity.X +
+                    this.getVelocity.Y * this.getVelocity.Y +
+                    this.getVelocity.Z * this.getVelocity.Z);
+                this.getVehicleHealth = Math.round(API.getVehicleHealth(this.getVehicle) / 10);
+                this.getVehicleClass = API.getVehicleClass(API.getEntityModel(this.getVehicle));
+                this.speedInMph = Math.round(this.speed * 2.23694); // MPH because we are in 'Murica
+                this.speedInKnots = Math.round(this.speed * 1.9438477170141); // Knots for Air/Water vehicles
+                switch (this.getVehicleClass) {
+                    case 14:
+                    case 15:
+                    case 16:
+                        API.drawText(this.speedInKnots.toString(), 345, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                        API.drawText("Knt", 470, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                        break;
+                    default:
+                        API.drawText(this.speedInMph.toString(), 345, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                        API.drawText("MPH", 470, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                        break;
+                }
+                API.drawText(this.getVehicleHealth.toString(), 345, 1000, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                API.drawText("% health", 470, 1000, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+            }
+        }
+    };
+    return HUD;
+}());
 /// <reference path="types-gtanetwork/index.d.ts" />
 /// <reference path="libs/CefHelper.ts" />
-/// <reference path="speedometer.ts" />
-"use strict";
+/// <reference path="libs/HUD.ts" />
 var cef = null;
+var hud = null;
 API.onResourceStart.connect(function () {
     API.sendChatMessage("~g~CefBrowser started!");
     cef = new CefHelper('client/resources/boilerplate.html');
@@ -91,4 +93,8 @@ API.onChatCommand.connect(function (test) {
             cef.show();
         }
     }
+});
+API.onUpdate.connect(function () {
+    hud = new HUD();
+    hud.showSpeed();
 });
