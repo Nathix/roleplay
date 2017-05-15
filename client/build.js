@@ -43,18 +43,18 @@ API.onUpdate.connect(function () {
             var speed = Math.sqrt(vel.X * vel.X +
                 vel.Y * vel.Y +
                 vel.Z * vel.Z);
-            var speedInMph = Math.round(speed * 2.23694); // MPH because we are in America
-            var speedInKnots = Math.round(speed * 1.9438477170141); // Knots for Air/Water vehicles
             var vehHealth = Math.round(API.getVehicleHealth(veh) / 10);
             var vehClass = API.getVehicleClass(API.getEntityModel(veh));
             switch (vehClass) {
-                case 14:
-                case 15:
+                case 14: // Boats
+                case 15: // Helicopters
                 case 16:
+                    var speedInKnots = Math.round(speed * 1.9438477170141); // Knots for Air/Water vehicles
                     API.drawText(speedInKnots.toString(), 345, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
                     API.drawText("Kts", 470, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
                     break;
                 default:
+                    var speedInMph = Math.round(speed * 2.23694); // MPH because we are in America
                     API.drawText(speedInMph.toString(), 345, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
                     API.drawText("MPH", 470, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
                     break;
