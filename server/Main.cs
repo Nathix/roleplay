@@ -1,37 +1,37 @@
 ﻿using GTANetworkServer;
 using GTANetworkShared;
 
-namespace server
+namespace SARoleplay.Server
 {
     class Main : Script
     {
         public Main()
         {
-            API.onResourceStart += init;
-            API.onResourceStop += stop;
+            API.onResourceStart += OnResourceStart;
+            API.onResourceStop += OnResourceStop;
             
 
-            API.onPlayerRespawn += spawnPlayer;
-            API.onPlayerFinishedDownload += spawnPlayer;
-            API.onUpdate += update;
+            API.onPlayerRespawn += SpawnPlayer;
+            API.onPlayerFinishedDownload += SpawnPlayer;
+            API.onUpdate += OnUpdate;
         }
 
-        public void init()
+        public void OnResourceStart()
         {
             API.sendChatMessageToAll("~r~Roleplay has started!");
         }
 
-        public void stop()
+        public void OnResourceStop()
         {
             API.sendChatMessageToAll("~r~Roleplay stopped!");
         }
 
-        public void spawnPlayer(Client player)
+        public void SpawnPlayer(Client player)
         {
 
         }
 
-        public void update()
+        public void OnUpdate()
         {
 
         }

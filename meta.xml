@@ -1,10 +1,7 @@
 ﻿<meta>
   <info name="Roleplay" author="Nathan 'Unix'" type="script" />
 
-  <script src="server/Main.cs" type="server" lang="csharp" />
-  <script src="server/Class1.cs" type="server" lang="csharp" />
-  <script src="server/GtaOnline.cs" type="server" lang="csharp" />
-  
+  <script src="server/bin/Debug/server.dll" type="server" lang="compiled" />
   <script src="client/build.js" type="client" lang="javascript" />
 
   <file src="client/resources/boilerplate.html" />

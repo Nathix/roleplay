@@ -9,23 +9,33 @@ API.onUpdate.connect(function () {
     if (inveh) {
         var veh = API.getPlayerVehicle(player);
 
-        if (API.getPlayerVehicleSeat(player) == 1) {
+        if (API.getPlayerVehicleSeat(player) == -1) {
             var vel = API.getEntityVelocity(player);
-            var rpm = Math.floor(API.getVehicleRPM(veh) * 1000);
             var speed = Math.sqrt(
                 vel.X * vel.X +
                 vel.Y * vel.Y +
                 vel.Z * vel.Z
             );
             var speedInMph = Math.round(speed * 2.23694); // MPH because we are in America
+            var speedInKnots = Math.round(speed * 1.9438477170141); // Knots for Air/Water vehicles
+
             var vehHealth = Math.round(API.getVehicleHealth(veh) / 10);
 
-            API.drawText(speedInMph.toString(), 345, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-            API.drawText("MPH", 470, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-            API.drawText(rpm.toString(), 345, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-            API.drawText("RPM", 470, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-            API.drawText(vehHealth + "", 345, 1000, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-            API.drawText("% health", 470, 1000, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+            var vehClass = API.getVehicleClass(API.getEntityModel(veh));
+            switch (vehClass) {
+                case 14:
+                case 15:
+                case 16:
+                    API.drawText(speedInKnots.toString(), 345, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                    API.drawText("Kts", 470, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                    break;
+                default:
+                    API.drawText(speedInMph.toString(), 345, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                    API.drawText("MPH", 470, 900, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                    break;
+            }
+            API.drawText(vehHealth + "", 345, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+            API.drawText("% health", 470, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
         }
     }
 });

@@ -1,0 +1,7 @@
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\bin\Debug\server.dll
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\bin\Debug\server.pdb
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\bin\Debug\GTANetworkServer.exe
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\bin\Debug\GTANetworkShared.dll
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\obj\Debug\roleplay server.csprojResolveAssemblyReference.cache
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\obj\Debug\server.dll
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\obj\Debug\server.pdb

@@ -24,8 +24,8 @@
 
     hide() {
         this.open = false;
-        API.destroyCefBrowser(this.browser);
-        API.showCursor(!API.isCursorShown());
+        //API.destroyCefBrowser(this.browser); // Broken
+        API.showCursor(this.open);
     }
 
     eval(string) {
