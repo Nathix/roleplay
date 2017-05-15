@@ -16,7 +16,7 @@ API.onResourceStop.connect(function () {
 
 API.onChatCommand.connect(function (test) {
     if (test == "/show") {
-        cef.show();
+        cef.show(); 
     }
     else if (test == "/hide") {
         cef.hide();

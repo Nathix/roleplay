@@ -1,4 +1,5 @@
 "use strict";
+"use strict";
 var CefHelper = (function () {
     function CefHelper(resourcePath) {
         this.resourcePath = resourcePath;
@@ -29,6 +30,7 @@ var CefHelper = (function () {
     };
     return CefHelper;
 }());
+"use strict";
 /// <reference path="../types-gtanetwork/index.d.ts" />
 var HUD = (function () {
     function HUD() {
@@ -69,6 +71,7 @@ var HUD = (function () {
 /// <reference path="types-gtanetwork/index.d.ts" />
 /// <reference path="libs/CefHelper.ts" />
 /// <reference path="libs/HUD.ts" />
+"use strict";
 var cef = null;
 var hud = null;
 API.onResourceStart.connect(function () {
