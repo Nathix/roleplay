@@ -1,0 +1,10 @@
+﻿<meta>
+  <!-- Boilerplate-->
+  <file src="www/phone/index.html" />
+  <file src="www/phone/phone.svg" />
+  <file src="www/phone/iphone.png" />
+  <file src="www/phone/background.jpg" />
+
+  <!-- Main -->
+  <script src="./main.js" type="client" lang="javascript" />
+</meta>
