@@ -69,8 +69,28 @@ var HUD = (function () {
     return HUD;
 }());
 /// <reference path="types-gtanetwork/index.d.ts" />
+"use strict";
+API.onServerEventTrigger.connect(function (name, args) {
+    if (name == "player:camera:interpolate") {
+        var startCamera = API.createCamera(args[1], args[3]);
+        var endCamera = API.createCamera(args[2], args[4]);
+        API.interpolateCameras(startCamera, endCamera, args[0], true, true);
+    }
+});
+/// <reference path="types-gtanetwork/index.d.ts" />
+"use strict";
+API.onServerEventTrigger.connect(function (name, args) {
+    if (name == "player:login:show") {
+        var cef = new CefHelper('client/resources/pages/account/login.html');
+        cef.show();
+        API.sendNotification("Login!");
+    }
+});
+/// <reference path="types-gtanetwork/index.d.ts" />
 /// <reference path="libs/CefHelper.ts" />
 /// <reference path="libs/HUD.ts" />
+/// <reference path="Camera.ts" />
+/// <reference path="Account.ts" />
 "use strict";
 var cef = null;
 var hud = null;

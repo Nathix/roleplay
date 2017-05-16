@@ -48,10 +48,19 @@
   <ItemGroup>
     <Compile Include="EntityManager.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Player\ChatManager.cs" />
+    <Compile Include="Player\ConnectionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Business\" />
+    <Folder Include="Faction\" />
+    <Folder Include="House\" />
+    <Folder Include="Job\" />
+    <Folder Include="Vehicle\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

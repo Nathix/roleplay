@@ -1,10 +1,20 @@
 ﻿<meta>
-  <info name="Roleplay" author="Nathan 'Unix'" type="script" />
+  <info name="Roleplay" author="San Andreas Roleplay Development Team" type="script" />
 
   <script src="server/bin/Debug/server.dll" type="server" lang="compiled" />
   <script src="client/build.js" type="client" lang="javascript" />
 
   <file src="client/resources/boilerplate.html" />
+
+  <!-- CSS & CSS Requirements -->
+  <file src="client/resources/css/bootstrap.min.css" />
+  <file src="client/resources/css/login.css" />
+  <file src="client/resources/fonts/glyphicons-halflings-regular.ttf" />
+  <file src="client/resources/js/jquery-3.2.1.min.js" />
+  <file src="client/resources/js/bootstrap.min.js" />
+  
+  <!-- Account -->
+  <file src="client/resources/pages/account/login.html" />  
 
   <assembly ref="System.Xml.dll" />
   <assembly ref="System.Xml.Linq.dll" />
