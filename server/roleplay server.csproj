@@ -46,21 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Businesses\BusinessController.cs" />
     <Compile Include="EntityManager.cs" />
+    <Compile Include="Factions\FactionController.cs" />
+    <Compile Include="Houses\HouseController.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Player\ChatManager.cs" />
     <Compile Include="Player\ConnectionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vehicles\VehicleController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Business\" />
-    <Folder Include="Faction\" />
-    <Folder Include="House\" />
-    <Folder Include="Job\" />
-    <Folder Include="Vehicle\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

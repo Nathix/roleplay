@@ -1,7 +1,7 @@
 ﻿using GTANetworkServer;
 using GTANetworkShared;
 
-namespace SARoleplay.Server
+namespace SARoleplay
 {
     class Main : Script
     {
@@ -18,6 +18,7 @@ namespace SARoleplay.Server
 
         public void OnResourceStart()
         {
+            EntityManager.Init();
             API.sendChatMessageToAll("~r~Roleplay has started!");
         }
 

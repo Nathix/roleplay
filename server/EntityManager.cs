@@ -6,19 +6,91 @@ using System.Threading.Tasks;
 using GTANetworkServer;
 using GTANetworkShared;
 
-namespace SARoleplay.Server
+using SARoleplay.Vehicles;
+using SARoleplay.Houses;
+using SARoleplay.Factions;
+using SARoleplay.Businesses;
+
+namespace SARoleplay
 {
     public class EntityManager
     {
-        private Dictionary<int, NetHandle> Vehicles = new Dictionary<int, NetHandle>();
-        private Dictionary<int, NetHandle> Factions = new Dictionary<int, NetHandle>();
-        private Dictionary<int, NetHandle> Houses = new Dictionary<int, NetHandle>();
-        private Dictionary<int, NetHandle> Businesses = new Dictionary<int, NetHandle>();
-        private Dictionary<int, NetHandle> Players = new Dictionary<int, NetHandle>();
+        private static List<VehicleController> Vehicles = new List<VehicleController>();
+        private static List<FactionController> Factions = new List<FactionController>();
+        private static List<HouseController> Houses = new List<HouseController>();
+        private static List<BusinessController> Businesses = new List<BusinessController>();
+        private static List<NetHandle> Players = new List<NetHandle>();
 
         public static void Init()
         {
+            VehicleController.LoadVehicles();
+            FactionController.LoadFactions();
+            HouseController.LoadHouses();
+            BusinessController.LoadBusinesses();
+        }
 
+        /* Vehicle Entity Functions */
+        public static void Add(VehicleController vehicle)
+        {
+            Vehicles.Add(vehicle);
+        }
+
+        public static void Remove(VehicleController vehicle)
+        {
+            Vehicles.Remove(vehicle);
+        }
+
+        public static List<VehicleController> GetVehicleControllers()
+        {
+            return Vehicles;
+        }
+
+        /* House Entity Functions */
+        public static void Add(HouseController house)
+        {
+            Houses.Add(house);
+        }
+
+        public static void Remove(HouseController house)
+        {
+            Houses.Remove(house);
+        }
+
+        public static List<HouseController> GetHouseControllers()
+        {
+            return Houses;
+        }
+
+        /* Faction Entity Functions */
+        public static void Add(FactionController faction)
+        {
+            Factions.Add(faction);
+        }
+
+        public static void Remove(FactionController faction)
+        {
+            Factions.Remove(faction);
+        }
+
+        public static List<FactionController> GetFactionControllers()
+        {
+            return Factions;
+        }
+
+        /* Business Entity Functions */
+        public static void Add(BusinessController business)
+        {
+            Businesses.Add(business);
+        }
+
+        public static void Remove(BusinessController business)
+        {
+            Businesses.Remove(business);
+        }
+
+        public static List<BusinessController> GetBusinessControllers()
+        {
+            return Businesses;
         }
     }
 }
