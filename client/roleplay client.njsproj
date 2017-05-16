@@ -51,10 +51,10 @@
     <TypeScriptCompile Include="libs\CefHelper.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="libs\HUD.ts" />
     <TypeScriptCompile Include="Main.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="speedometer.ts" />
     <TypeScriptCompile Include="types-gtanetwork\Declarations.d.ts" />
     <TypeScriptCompile Include="types-gtanetwork\Enums.ts" />
     <TypeScriptCompile Include="types-gtanetwork\GTANetwork.dll.d.ts" />
