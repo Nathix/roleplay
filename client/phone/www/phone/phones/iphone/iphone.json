@@ -3,9 +3,9 @@
 		"name": "iphone",
 		"left": 0,
 		"top": 0,
-		"width": "443px",
+		"width": "447px",
 		"phoneImage": {
-			"file":"./phones/iphone/iphone.png",
+			"file":"/www/phone/phones/iphone/iphone.png",
 			"width":"447px",
 			"height":"931px"	
 		},
@@ -26,7 +26,7 @@
 			}
 		},
 		"template": {
-			"scss": "./phones/iphone/iphone.scss",
+			"scss": "/www/phone/phones/iphone/iphone.scss",
 			"scripts": []
 		},
 		"homeButton": {

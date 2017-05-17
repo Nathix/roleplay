@@ -8,6 +8,7 @@
   <file src="www/phone/inc/css/font-awesome.min.css" />
   <file src="www/phone/style.css" />
   <file src="www/phone/inc/fonts/fontawesome-webfont.ttf" />
+  <file src="www/phone/apps/2048/index.html" />
 
   <!-- Main -->
   <script src="./main.js" type="client" lang="javascript" />

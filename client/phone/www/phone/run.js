@@ -7,7 +7,7 @@
 				topMeta: "#top-meta",
 				phoneDevice: "#phone-device",
 				container: "#container",
-				container: "#container-inner",
+				containerInner: "#container-inner",
 				url: "/www",
 				uri: "phone",
 			};
@@ -88,10 +88,10 @@
 						"width":"100%",
 						"left":self.currPhone.left,
 						"top":self.currPhone.top
-					});
+					}).attr({"id": self.currPhone.name});
 					$(settings.containerInner).css(
 					{
-						"width": self.currPhone.width
+						"width": self.currPhone.phoneImage.width
 					});
 					$(settings.screen).css(
 					{	

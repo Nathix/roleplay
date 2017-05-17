@@ -37,9 +37,14 @@ API.onResourceStart.connect(function () {
 API.onResourceStop.connect(function () {
     cef.destroy();
 });
-PI.onChatCommand.connect(function (test) {
+API.onChatCommand.connect(function (test) {
     if (test == "/cursor") {
-		
         API.showCursor(true);
     }
 });
+API.onKeyDown.connect(function (sender, e) {
+  if (e.KeyCode === Keys.E) {
+    // Do something.
+	API.showCursor(false);
+  }
+})
