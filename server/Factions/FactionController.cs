@@ -10,6 +10,11 @@ namespace SARoleplay.Factions
 {
     public class FactionController : Script
     {
+        public Data.Faction FactionData;
+        public Data.FactionRank FactionRankData;
+        public Data.FactionVehicle FactionVehicleData;
+        public Data.FactionMember FactionMemberData;
+
         public FactionController()
         {
             EntityManager.Add(this);

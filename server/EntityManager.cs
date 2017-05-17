@@ -6,20 +6,22 @@ using System.Threading.Tasks;
 using GTANetworkServer;
 using GTANetworkShared;
 
+using SARoleplay;
 using SARoleplay.Vehicles;
 using SARoleplay.Houses;
 using SARoleplay.Factions;
 using SARoleplay.Businesses;
+using SARoleplay.Player;
 
 namespace SARoleplay
 {
-    public class EntityManager
+    public class EntityManager 
     {
         private static List<VehicleController> Vehicles = new List<VehicleController>();
         private static List<FactionController> Factions = new List<FactionController>();
         private static List<HouseController> Houses = new List<HouseController>();
         private static List<BusinessController> Businesses = new List<BusinessController>();
-        private static List<NetHandle> Players = new List<NetHandle>();
+        private static List<PlayerController> Players = new List<PlayerController>();
 
         public static void Init()
         {
@@ -27,6 +29,22 @@ namespace SARoleplay
             FactionController.LoadFactions();
             HouseController.LoadHouses();
             BusinessController.LoadBusinesses();
+        }
+
+        /* Player Entity Functions */
+        public static void Add(PlayerController player)
+        {
+            Players.Add(player);
+        }
+
+        public static void Remove(PlayerController player)
+        {
+            Players.Remove(player);
+        }
+
+        public static List<PlayerController> GetPlayerControllers()
+        {
+            return Players;
         }
 
         /* Vehicle Entity Functions */

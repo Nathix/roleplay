@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,12 +48,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Businesses\BusinessController.cs" />
+    <Compile Include="Data\Business.cs" />
+    <Compile Include="Data\Character.cs" />
+    <Compile Include="Data\Faction.cs" />
+    <Compile Include="Data\FactionMember.cs" />
+    <Compile Include="Data\FactionRank.cs" />
+    <Compile Include="Data\FactionVehicle.cs" />
+    <Compile Include="Data\House.cs" />
+    <Compile Include="Data\Vehicle.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Factions\FactionController.cs" />
     <Compile Include="Houses\HouseController.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Data\Account.cs" />
     <Compile Include="Player\ChatManager.cs" />
     <Compile Include="Player\ConnectionManager.cs" />
+    <Compile Include="Player\PlayerController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vehicles\VehicleController.cs" />
   </ItemGroup>

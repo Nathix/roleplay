@@ -10,6 +10,8 @@ namespace SARoleplay.Houses
 {
     public class HouseController : Script
     {
+        public Data.House HouseData;
+
         public HouseController()
         {
             EntityManager.Add(this);

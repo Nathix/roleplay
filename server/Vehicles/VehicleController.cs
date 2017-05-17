@@ -10,6 +10,7 @@ namespace SARoleplay.Vehicles
 {
     public class VehicleController : Script
     {
+        public Data.Vehicle VehicleData;
         public Vehicle vehicle;
 
         public VehicleController()

@@ -10,6 +10,8 @@ namespace SARoleplay.Businesses
 {
     public class BusinessController : Script
     {
+        public Data.Business BusinessData;
+
         public BusinessController()
         {
             EntityManager.Add(this);
