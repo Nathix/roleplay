@@ -61,8 +61,8 @@ nav {
 	position: fixed;
 }
 #container-inner {
-	position: relative;
-	width: 100%;
+	position: fixed;
+	right: 50px;
 }
 #screen {
 	position: absolute;
@@ -102,6 +102,7 @@ nav {
 
 body {
 	font-family: helvetica, sans-serif;
+	background: transparent;
 }
 
 /** --- IPHONE --- **/

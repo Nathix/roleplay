@@ -1,9 +1,3 @@
-<html>
-	<head>
-		<link rel="stylesheet" href="inc/css/font-awesome.min.css">
-		<link rel="stylesheet" href="style.css">
-		<script src="./jquery.js" type="text/javascript"></script>
-		<script>
 			var d = true;
 			function debug(text) {
 				if(d) console.log(text);
@@ -13,8 +7,9 @@
 				topMeta: "#top-meta",
 				phoneDevice: "#phone-device",
 				container: "#container",
-				url: "http://localhost:81",
-				uri: "/roleplay",
+				container: "#container-inner",
+				url: "/www",
+				uri: "phone",
 			};
 
 			var webElementController = {
@@ -55,8 +50,8 @@
 				},
 				// Home button refers to the json instance same as the others
 				renderHomeButton: function(homeButton) {
-					jQuery(settings.screen).after(
-						jQuery("<div></div>", {id:homeButton.id, class: 'home-button'}).css({"left":homeButton.left,"bottom":homeButton.bottom})
+					$(settings.screen).after(
+						$("<div></div>", {id:homeButton.id, class: 'home-button'}).css({"left":homeButton.left,"bottom":homeButton.bottom})
 					);			
 				},
 				renderLockScreen: function(lockscreen) {
@@ -90,9 +85,13 @@
 					var self = this;
 					$(settings.container).css(
 					{
-						"width":self.currPhone.width,
+						"width":"100%",
 						"left":self.currPhone.left,
 						"top":self.currPhone.top
+					});
+					$(settings.containerInner).css(
+					{
+						"width": self.currPhone.width
 					});
 					$(settings.screen).css(
 					{	
@@ -135,7 +134,7 @@
 					screenController.displayScreenElement(".app#" + appName);
 					screenController.currViewingElement = appName;
 				}
-			};
+			}; 
 			function fetchPhoneData(phone) {
 				debug("Downloading phone data");
 				phone = "iphone";
@@ -153,6 +152,7 @@
 				});
 			}
 			$(document).ready(function() {
+				debug("building phone");
 				fetchPhoneData("iphone"); // There is no way to destroy and render a new phone without refreshing.
 				jQuery(".app-icon").click(function() {
 					var appName = $(this).attr("data-app");
@@ -160,58 +160,3 @@
 					app.showApp(appName);
 				});
 			}); 
-		</script>
-	</head>
-	<body>
-		<div id="container">
-			<div id="container-inner">
-				<div id="screen" >
-					<div id="wallpaper" class="lockscreen">
-						<div id="wallpaper-skin" style="background:url('./wallpapers/background.jpg');">
-						
-						</div>
-					</div>
-					<div id="top-meta">
-						<span style="display:block; position: absolute; left:0; right:0; top:45px; text-align:center; font-size: 48px; color:rgba(255,255,255,0.4); font-weight:normal;">12:05</span>
-						<span id="provider">Roleplay</span>
-						<span id="battery"><i class="fa fa-battery-full" aria-hidden="true"></i></span>
-						<span id="signal"><i class="fa fa-signal" aria-hidden="true"></i></span>
-						<div class="clear:both; float:none;">&nbsp;</div>
-					</div>
-					<div id="apps">
-						<div class="app hidden" id="game">
-							<iframe src="http://localhost:81/roleplay/apps/2048/index.html" style="overflow: hidden; width: 375px; position: absolute; border: 0; top: 20px; height: 644px; left: 0px;"></iframe>
-						</div>
-						<div class="app hidden" id="happywheels">
-							<iframe src="http://www.happywheels.com/" style="overflow: hidden; width: 288px; position: absolute; border: 0; top: -65px; height: 478px; left: -15px;"></iframe>
-						</div>
-					</div>
-					<div id="desktop" class="hidden">
-						<ul>
-							<li>
-								<div class="app-icon" data-app="game">
-									<i class="fa fa-facebook"></i>
-								</div>
-							</li>
-							<li>
-								<div class="app-icon" data-app="happywheels">
-									<i class="fa fa-bathtub"></i>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div id="notifications" class="hidden">
-						<nav><span><i class="fa fa-bell" aria-hidden="true"></i></span>Push notifications</nav>
-						<nav><span><i class="fa fa-envelope" aria-hidden="true"></i></span>5 new messages</nav>
-					</div>
-				</div>
-				
-				<div id="phone-device"></div>
-				<div id="lockscreen-text" class="hidden">
-					<p></p>
-				</div>
-				<!--<object data="./phone.svg" type="image/svg+xml" style="position: absolute; z-index: 1;"></object>-->
-			</div>
-		</div>
-	</body>
-</html>

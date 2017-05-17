@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="/www/phone/inc/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/www/phone/style.css">
+		<script src="/www/phone/jquery.js" type="text/javascript"></script>
+		<script src="/www/phone/run.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div id="container" style="background:transparent !important;">
+			<div id="container-inner">
+				<div id="screen" >
+					<div id="wallpaper" class="lockscreen">
+						<div id="wallpaper-skin" style="background:url('./wallpapers/background.jpg');">
+						
+						</div>
+					</div>
+					<div id="top-meta">
+						<span style="display:block; position: absolute; left:0; right:0; top:45px; text-align:center; font-size: 48px; color:rgba(255,255,255,0.4); font-weight:normal;">12:05</span>
+						<span id="provider">Roleplay</span>
+						<span id="battery"><i class="fa fa-battery-full" aria-hidden="true"></i></span>
+						<span id="signal"><i class="fa fa-signal" aria-hidden="true"></i></span>
+						<div class="clear:both; float:none;">&nbsp;</div>
+					</div>
+					<div id="apps">
+						<div class="app hidden" id="game">
+							<iframe src="#" style="overflow: hidden; width: 375px; position: absolute; border: 0; top: 20px; height: 644px; left: 0px;"></iframe>
+						</div>
+						<div class="app hidden" id="happywheels">
+							<iframe src="#" style="overflow: hidden; width: 288px; position: absolute; border: 0; top: -65px; height: 478px; left: -15px;"></iframe>
+						</div>
+					</div>
+					<div id="desktop" class="hidden">
+						<ul>
+							<li>
+								<div class="app-icon" data-app="game">
+									<i class="fa fa-facebook"></i>
+								</div>
+							</li>
+							<li>
+								<div class="app-icon" data-app="happywheels">
+									<i class="fa fa-bathtub"></i>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div id="notifications" class="hidden">
+						<nav><span><i class="fa fa-bell" aria-hidden="true"></i></span>Push notifications</nav>
+						<nav><span><i class="fa fa-envelope" aria-hidden="true"></i></span>5 new messages</nav>
+					</div>
+				</div>
+				
+				<div id="phone-device"></div>
+				<div id="lockscreen-text" class="hidden">
+					<p></p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

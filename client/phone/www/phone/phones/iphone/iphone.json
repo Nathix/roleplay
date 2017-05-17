@@ -3,7 +3,7 @@
 		"name": "iphone",
 		"left": 0,
 		"top": 0,
-		"width": "100%",
+		"width": "443px",
 		"phoneImage": {
 			"file":"./phones/iphone/iphone.png",
 			"width":"447px",

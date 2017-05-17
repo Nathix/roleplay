@@ -20,7 +20,7 @@ class CefHelper {
     destroy() {
         this.open = false;
         API.destroyCefBrowser(this.browser);
-       // API.showCursor(false);
+        //API.showCursor(false);
     }
     eval(string) {
         this.browser.eval(string);
@@ -36,4 +36,10 @@ API.onResourceStart.connect(function () {
 });
 API.onResourceStop.connect(function () {
     cef.destroy();
+});
+PI.onChatCommand.connect(function (test) {
+    if (test == "/cursor") {
+		
+        API.showCursor(true);
+    }
 });

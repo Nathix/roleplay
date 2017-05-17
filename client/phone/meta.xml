@@ -1,0 +1,14 @@
+﻿<meta>
+  <file src="www/phone/index.html" />
+  <file src="www/phone/run.js" />
+  <file src="www/phone/jquery.js" />
+  <file src="www/phone/phones/iphone/iphone.png" />
+  <file src="www/phone/phones/iphone/iphone.json" />
+  <file src="www/phone/wallpapers/background.jpg" />
+  <file src="www/phone/inc/css/font-awesome.min.css" />
+  <file src="www/phone/style.css" />
+  <file src="www/phone/inc/fonts/fontawesome-webfont.ttf" />
+
+  <!-- Main -->
+  <script src="./main.js" type="client" lang="javascript" />
+</meta>
