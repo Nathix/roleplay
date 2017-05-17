@@ -18,6 +18,7 @@ namespace SARoleplay
 
         public void OnResourceStart()
         {
+            API.setGamemodeName("SARP Alpha");
             EntityManager.Init();
             API.sendChatMessageToAll("~r~Roleplay has started!");
         }
