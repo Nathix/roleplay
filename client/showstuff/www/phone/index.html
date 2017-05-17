@@ -14,7 +14,7 @@
 				phoneDevice: "#phone-device",
 				container: "#container",
 				url: "http://localhost:81",
-				uri: "/rp/game/resources/showstuff/www/phone",
+				uri: "/roleplay",
 			};
 
 			var webElementController = {
@@ -141,7 +141,7 @@
 				phone = "iphone";
 				var phoneURL = settings.url + "/" + settings.uri + "/phones/" + phone + "/" + phone + ".json";
 				$.ajax({
-					url: "http://localhost:81/rp/game/resources/showstuff/www/phone/phones/iphone/iphone.json",
+					url: phoneURL,
 					method: "POST",
 					dataType: "json"
 				}).done(function(r) {
@@ -180,7 +180,7 @@
 					</div>
 					<div id="apps">
 						<div class="app hidden" id="game">
-							<iframe src="http://www.moneylovin.com/" style="overflow: hidden; width: 288px; position: absolute; border: 0; top: -65px; height: 478px; left: -15px;"></iframe>
+							<iframe src="http://localhost:81/roleplay/apps/2048/index.html" style="overflow: hidden; width: 375px; position: absolute; border: 0; top: 20px; height: 644px; left: 0px;"></iframe>
 						</div>
 						<div class="app hidden" id="happywheels">
 							<iframe src="http://www.happywheels.com/" style="overflow: hidden; width: 288px; position: absolute; border: 0; top: -65px; height: 478px; left: -15px;"></iframe>
@@ -192,6 +192,8 @@
 								<div class="app-icon" data-app="game">
 									<i class="fa fa-facebook"></i>
 								</div>
+							</li>
+							<li>
 								<div class="app-icon" data-app="happywheels">
 									<i class="fa fa-bathtub"></i>
 								</div>

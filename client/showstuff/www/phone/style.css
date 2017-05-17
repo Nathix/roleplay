@@ -77,9 +77,11 @@ nav {
 #desktop ul {
 	list-style: none;
 	padding: 0;
+	margin-top: 25px;
 }
 #desktop ul li {
 	float:left;
+	margin-right: 25px;
 }
 #desktop ul li .app-icon i {
 	line-height: 52px;
