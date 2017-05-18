@@ -6,7 +6,7 @@
     constructor(public resourcePath: string) {
         this.path = resourcePath;
         this.open = false;
-    } 
+    }
 
     show() {
         if (this.open === false) {
@@ -23,9 +23,11 @@
     }
 
     hide() {
+      if(this.open == true) {
         this.open = false;
-        //API.destroyCefBrowser(this.browser); // Broken
+        API.destroyCefBrowser(this.browser);
         API.showCursor(this.open);
+      }
     }
 
     eval(string) {
