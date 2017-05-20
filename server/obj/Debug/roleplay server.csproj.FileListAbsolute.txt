@@ -5,3 +5,7 @@ C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\bin\Debug\GTANetwo
 C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\obj\Debug\roleplay server.csprojResolveAssemblyReference.cache
 C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\obj\Debug\server.dll
 C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\obj\Debug\server.pdb
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\bin\Debug\Fleck.dll
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\bin\Debug\server.dll.config
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\bin\Debug\Newtonsoft.Json.dll
+C:\Users\natha\Desktop\GTA-N Server\resources\roleplay\server\bin\Debug\Newtonsoft.Json.xml

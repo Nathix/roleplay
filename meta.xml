@@ -14,8 +14,10 @@
   <file src="client/resources/js/bootstrap.min.js" />
   
   <!-- Account -->
-  <file src="client/resources/pages/account/login.html" />  
+  <file src="client/resources/pages/account/login.html" />
 
+  <assembly ref="Newtonsoft.Json.dll" />
+  <assembly ref="Fleck.dll" />
   <assembly ref="System.Xml.dll" />
   <assembly ref="System.Xml.Linq.dll" />
 
