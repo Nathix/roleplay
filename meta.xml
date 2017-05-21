@@ -5,8 +5,6 @@
   <script src="server/bin/Debug/server.dll" type="server" lang="compiled" />
   <script src="client/build.js" type="client" lang="javascript" />
 
-  <file src="client/resources/boilerplate.html" />
-
   <assembly ref="System.Xml.dll" />
   <assembly ref="System.Xml.Linq.dll" />
 
