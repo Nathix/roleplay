@@ -1,6 +1,7 @@
 ﻿<meta>
   <info name="Roleplay" author="Nathan 'Unix'" type="script" />
 
+  
   <script src="server/bin/Debug/server.dll" type="server" lang="compiled" />
   <script src="client/build.js" type="client" lang="javascript" />
 
@@ -9,4 +10,43 @@
   <assembly ref="System.Xml.dll" />
   <assembly ref="System.Xml.Linq.dll" />
 
+  <!-- Begin Phone -->
+	<!-- Device and Scripts -->
+	<file src="index.html" />
+	<file src="inc/js/run.js" />
+	<file src="inc/js/jquery.js" />
+	<file src="inc/fonts/fontawesome-webfont.ttf" /> 
+	<file src="style.css" />
+	<file src="inc/css/font-awesome.min.css" />
+
+	<!-- Wallpapers -->
+	<file src="wallpapers/background.jpg" />
+
+	<!-- Phones -->
+		<!-- iPhone -->
+		<file src="phones/iphone/iphone.png" />
+		<file src="phones/iphone/iphone.json" />
+
+		<!-- Android -->
+
+	<!-- Apps -->
+		<!-- 2048 -->
+		<file src="apps/2048/index.html" />
+		<file src="apps/2048/style/main.css" />
+		<file src="apps/2048/js/bind_polyfill.js" />
+		<file src="apps/2048/js/classlist_polyfill.js" />
+		<file src="apps/2048/js/animframe_polyfill.js" />
+		<file src="apps/2048/js/keyboard_input_manager.js" />
+		<file src="apps/2048/js/html_actuator.js" />
+		<file src="apps/2048/js/grid.js" />
+		<file src="apps/2048/js/tile.js" />
+		<file src="apps/2048/js/local_storage_manager.js" />
+		<file src="apps/2048/js/game_manager.js" />
+		<file src="apps/2048/js/application.js"/>	
+		<file src="apps/2048/style/fonts/clear-sans.css"/>	
+		<file src="apps/2048/style/fonts/ClearSans-Light-webfont.eot"/>	
+		
+		<!-- Main Script -->
+		<script src="./main.js" type="client" lang="javascript" />
+  <!-- End Phone -->
 </meta>
