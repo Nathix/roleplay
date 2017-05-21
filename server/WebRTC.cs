@@ -45,15 +45,16 @@ namespace SARoleplay
                         Console.WriteLine("Rip Client!");
                         allSockets.Remove(socket);
 
-                        Client temp;
-                        socketPlayers.TryGetValue(socket, out temp);
-
-                        if (temp != null)
+                        if(socketPlayers.ContainsKey(socket))
                         {
-                            socketPlayers.Remove(socket);
-                            playerSockets.Remove(temp);
-                        }
+                            Client temp = socketPlayers[socket];
 
+                            if (temp != null)
+                            {
+                                socketPlayers.Remove(socket);
+                                playerSockets.Remove(temp);
+                            }
+                        }
                     };
 
                     socket.OnMessage = (message) =>
@@ -63,13 +64,13 @@ namespace SARoleplay
 
                         if (data.type == "hello")
                         {
-                            Console.WriteLine("Hello " + data.data + "!");
+                            Console.WriteLine("Hello '" + data.data + "'!");
 
                             Client test = API.getPlayerFromName((string)data.data);
                             if (test != null)
                             {
-                                playerSockets.Add(API.getPlayerFromName(data.data), socket);
-                                socketPlayers.Add(socket, API.getPlayerFromName(data.data));
+                                playerSockets.Add(test, socket);
+                                socketPlayers.Add(socket, test);
                             }
                             else
                             {
@@ -77,32 +78,20 @@ namespace SARoleplay
                                 socket.Close();
                             }
                         }
-                        else
-                        {
-                            //Console.WriteLine(data.type);
-                        }
 
-                        /*foreach (var c in allSockets.ToList())
+                        if(socketPlayers.ContainsKey(socket))
                         {
-                            // TODO: Compare player locations
-                            if (socket != c && socket.IsAvailable == true)
+                            Client thePlayer = socketPlayers[socket];
+                            List<Client> Clients = API.shared.getPlayersInRadiusOfPlayer(30.0f, thePlayer);
+                            foreach (var c in Clients)
                             {
-                                //dynamic players = API.shared.getPlayersInRadiusOfPlayer(25.0f, )
-                                //API.shared.getPlayersInRadiusOfPlayer
-                                //socketPlayers
-                                c.Send(message);
-                            }
-                        }*/
-                        Client thePlayer;
-                        socketPlayers.TryGetValue(socket, out thePlayer);
-                        if(thePlayer != null)
-                        {
-                            List<Client> Clients = API.shared.getPlayersInRadiusOfPlayer(100.0f, thePlayer);
-                            foreach(var c in Clients)
-                            {
-                                IWebSocketConnection s;
-                                playerSockets.TryGetValue(c, out s);
-                                s.Send(message);
+                                if(c != thePlayer)
+                                {
+                                    if (playerSockets.ContainsKey(c))
+                                    {
+                                        playerSockets[c].Send(message);
+                                    }
+                                }
                             }
                         }
                     };

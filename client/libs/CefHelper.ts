@@ -10,7 +10,7 @@
         this.local = (local != null) ? local : true;
     } 
 
-    show() {
+    show(cursor?: boolean) {
         if (this.open === false) {
             this.open = true;
 
@@ -20,7 +20,8 @@
             API.waitUntilCefBrowserInit(this.browser);
             API.setCefBrowserPosition(this.browser, 0, 0);
             API.loadPageCefBrowser(this.browser, this.path);
-            API.showCursor(!API.isCursorShown());
+
+            API.showCursor((cursor != null) ? cursor : true);
         }
     }
 

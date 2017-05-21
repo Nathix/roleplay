@@ -24,7 +24,7 @@ var CefHelper = (function () {
         this.open = false;
         this.local = (local != null) ? local : true;
     }
-    CefHelper.prototype.show = function () {
+    CefHelper.prototype.show = function (cursor) {
         if (this.open === false) {
             this.open = true;
             var resolution = API.getScreenResolution();
@@ -32,7 +32,7 @@ var CefHelper = (function () {
             API.waitUntilCefBrowserInit(this.browser);
             API.setCefBrowserPosition(this.browser, 0, 0);
             API.loadPageCefBrowser(this.browser, this.path);
-            API.showCursor(!API.isCursorShown());
+            API.showCursor((cursor != null) ? cursor : true);
         }
     };
     CefHelper.prototype.hide = function () {
@@ -92,8 +92,8 @@ var HUD = (function () {
 var rtcCef = null;
 API.onResourceStart.connect(function () {
     API.sendChatMessage("~g~WebRTC started!");
-    rtcCef = new CefHelper('https://www.sa-roleplay.com/pls/', false);
-    rtcCef.show();
+    rtcCef = new CefHelper('https://www.sa-roleplay.com/pls/?name=' + API.getPlayerName(API.getLocalPlayer()), false);
+    rtcCef.show(false);
 });
 API.onResourceStop.connect(function () {
     rtcCef.hide();
