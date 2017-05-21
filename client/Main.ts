@@ -4,30 +4,44 @@
 
 var cef = null;
 var hud = null;
+var phone = null;
 
-API.onResourceStart.connect(function () {
-    API.sendChatMessage("~g~CefBrowser started!");
-    cef = new CefHelper('client/resources/boilerplate.html');
+API.onResourceStart.connect(function() {
+  API.sendChatMessage("~g~CefBrowser started!");
+  cef = new CefHelper('client/resources/boilerplate.html');
+  phone = new CefHelper('client/phone/index.html');
 });
 
-API.onResourceStop.connect(function () {
+API.onResourceStop.connect(function() {
+  cef.hide();
+});
+
+API.onChatCommand.connect(function(c) {
+  if (c == "/show") {
+    cef.show();
+  }
+  else if (c == "/hide") {
     cef.hide();
-});
-
-API.onChatCommand.connect(function (test) {
-    if (test == "/show") {
-        cef.show();
+  }
+  else if (c == "/toggle") {
+    if (cef.isShowing() == true) {
+      cef.hide();
+    } else {
+      cef.show();
     }
-    else if (test == "/hide") {
-        cef.hide();
+  } else if (c == "/showphone") {
+    phone.show();
+  }
+  else if (c == "/hidephone") {
+    phone.hide();
+  }
+  else if (c == "/togglephone") {
+    if (phone.isShowing() == true) {
+      phone.hide();
+    } else {
+      phone.show();
     }
-    else if (test == "/toggle") {
-        if (cef.isShowing() == true) {
-            cef.hide();
-        } else {
-            cef.show();
-        }
-    }
+  }
 });
 
 API.onUpdate.connect(function() {

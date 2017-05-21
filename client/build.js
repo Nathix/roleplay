@@ -17,9 +17,11 @@ var CefHelper = (function () {
         }
     };
     CefHelper.prototype.hide = function () {
-        this.open = false;
-        //API.destroyCefBrowser(this.browser); // Broken
-        API.showCursor(this.open);
+        if (this.open == true) {
+            this.open = false;
+            API.destroyCefBrowser(this.browser);
+            API.showCursor(this.open);
+        }
     };
     CefHelper.prototype.eval = function (string) {
         this.browser.eval(string);
@@ -71,26 +73,42 @@ var HUD = (function () {
 /// <reference path="libs/HUD.ts" />
 var cef = null;
 var hud = null;
+var phone = null;
 API.onResourceStart.connect(function () {
     API.sendChatMessage("~g~CefBrowser started!");
     cef = new CefHelper('client/resources/boilerplate.html');
+    phone = new CefHelper('client/phone/index.html');
 });
 API.onResourceStop.connect(function () {
     cef.hide();
 });
-API.onChatCommand.connect(function (test) {
-    if (test == "/show") {
+API.onChatCommand.connect(function (c) {
+    if (c == "/show") {
         cef.show();
     }
-    else if (test == "/hide") {
+    else if (c == "/hide") {
         cef.hide();
     }
-    else if (test == "/toggle") {
+    else if (c == "/toggle") {
         if (cef.isShowing() == true) {
             cef.hide();
         }
         else {
             cef.show();
+        }
+    }
+    else if (c == "/showphone") {
+        phone.show();
+    }
+    else if (c == "/hidephone") {
+        phone.hide();
+    }
+    else if (c == "/togglephone") {
+        if (phone.isShowing() == true) {
+            phone.hide();
+        }
+        else {
+            phone.show();
         }
     }
 });
