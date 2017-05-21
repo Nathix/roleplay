@@ -1,11 +1,13 @@
 ﻿class CefHelper {
     path: string;
     open: boolean;
+    local: boolean;
     browser: GTANetwork.GUI.Browser;
 
-    constructor(public resourcePath: string) {
+    constructor(resourcePath: string, local?: boolean) {
         this.path = resourcePath;
         this.open = false;
+        this.local = (local != null) ? local : true;
     } 
 
     show() {
@@ -14,7 +16,7 @@
 
             var resolution = API.getScreenResolution();
 
-            this.browser = API.createCefBrowser(resolution.Width, resolution.Height, true);
+            this.browser = API.createCefBrowser(resolution.Width, resolution.Height, this.local);
             API.waitUntilCefBrowserInit(this.browser);
             API.setCefBrowserPosition(this.browser, 0, 0);
             API.loadPageCefBrowser(this.browser, this.path);

@@ -3,6 +3,7 @@
 /// <reference path="libs/HUD.ts" />
 /// <reference path="Camera.ts" />
 /// <reference path="Account.ts" />
+/// <reference path="WebRTC.ts" />
 
 var cef = null;
 var hud = null;

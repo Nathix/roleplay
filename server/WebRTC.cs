@@ -14,6 +14,7 @@ namespace SARoleplay
     public class WebRTC : Script
     {
         List<IWebSocketConnection> allSockets = new List<IWebSocketConnection>(); // all socket connections
+        Dictionary<Client, IWebSocketConnection> playerSockets = new Dictionary<Client, IWebSocketConnection>(); // Player linked sockets only
         Dictionary<IWebSocketConnection, Client> socketPlayers = new Dictionary<IWebSocketConnection, Client>(); // Player linked sockets only
 
         public WebRTC()
@@ -21,7 +22,7 @@ namespace SARoleplay
             Thread thread = new Thread(new ThreadStart(WebRTCServer));
             thread.Start();
         }
-
+        
         public void WebRTCServer()
         {
             try
@@ -44,10 +45,15 @@ namespace SARoleplay
                         Console.WriteLine("Rip Client!");
                         allSockets.Remove(socket);
 
-                        if (socketPlayers.ContainsKey(socket) == true)
+                        Client temp;
+                        socketPlayers.TryGetValue(socket, out temp);
+
+                        if (temp != null)
                         {
                             socketPlayers.Remove(socket);
+                            playerSockets.Remove(temp);
                         }
+
                     };
 
                     socket.OnMessage = (message) =>
@@ -62,13 +68,13 @@ namespace SARoleplay
                             Client test = API.getPlayerFromName((string)data.data);
                             if (test != null)
                             {
+                                playerSockets.Add(API.getPlayerFromName(data.data), socket);
                                 socketPlayers.Add(socket, API.getPlayerFromName(data.data));
                             }
                             else
                             {
-                                //Console.WriteLine("Connection closed, no gtan player found");
-                                //socket.Close();
-                                // Comment if testing with chrome!
+                                socket.Send("{\"type\": \"error\",\"message\": \"No GTAN player found\"}");
+                                socket.Close();
                             }
                         }
                         else
@@ -76,12 +82,27 @@ namespace SARoleplay
                             //Console.WriteLine(data.type);
                         }
 
-                        foreach (var c in allSockets.ToList())
+                        /*foreach (var c in allSockets.ToList())
                         {
                             // TODO: Compare player locations
-                            if (socket != c)
+                            if (socket != c && socket.IsAvailable == true)
                             {
+                                //dynamic players = API.shared.getPlayersInRadiusOfPlayer(25.0f, )
+                                //API.shared.getPlayersInRadiusOfPlayer
+                                //socketPlayers
                                 c.Send(message);
+                            }
+                        }*/
+                        Client thePlayer;
+                        socketPlayers.TryGetValue(socket, out thePlayer);
+                        if(thePlayer != null)
+                        {
+                            List<Client> Clients = API.shared.getPlayersInRadiusOfPlayer(100.0f, thePlayer);
+                            foreach(var c in Clients)
+                            {
+                                IWebSocketConnection s;
+                                playerSockets.TryGetValue(c, out s);
+                                s.Send(message);
                             }
                         }
                     };

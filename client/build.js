@@ -1,16 +1,34 @@
 "use strict";
+/// <reference path="types-gtanetwork/index.d.ts" />
+"use strict";
+API.onServerEventTrigger.connect(function (name, args) {
+    if (name == "player:login:show") {
+        var cef = new CefHelper('client/resources/pages/account/login.html');
+        cef.show();
+        API.sendNotification("Login!");
+    }
+});
+/// <reference path="types-gtanetwork/index.d.ts" />
+"use strict";
+API.onServerEventTrigger.connect(function (name, args) {
+    if (name == "player:camera:interpolate") {
+        var startCamera = API.createCamera(args[1], args[3]);
+        var endCamera = API.createCamera(args[2], args[4]);
+        API.interpolateCameras(startCamera, endCamera, args[0], true, true);
+    }
+});
 "use strict";
 var CefHelper = (function () {
-    function CefHelper(resourcePath) {
-        this.resourcePath = resourcePath;
+    function CefHelper(resourcePath, local) {
         this.path = resourcePath;
         this.open = false;
+        this.local = (local != null) ? local : true;
     }
     CefHelper.prototype.show = function () {
         if (this.open === false) {
             this.open = true;
             var resolution = API.getScreenResolution();
-            this.browser = API.createCefBrowser(resolution.Width, resolution.Height, true);
+            this.browser = API.createCefBrowser(resolution.Width, resolution.Height, this.local);
             API.waitUntilCefBrowserInit(this.browser);
             API.setCefBrowserPosition(this.browser, 0, 0);
             API.loadPageCefBrowser(this.browser, this.path);
@@ -69,28 +87,23 @@ var HUD = (function () {
     return HUD;
 }());
 /// <reference path="types-gtanetwork/index.d.ts" />
+/// <reference path="libs/CefHelper.ts" />
 "use strict";
-API.onServerEventTrigger.connect(function (name, args) {
-    if (name == "player:camera:interpolate") {
-        var startCamera = API.createCamera(args[1], args[3]);
-        var endCamera = API.createCamera(args[2], args[4]);
-        API.interpolateCameras(startCamera, endCamera, args[0], true, true);
-    }
+var rtcCef = null;
+API.onResourceStart.connect(function () {
+    API.sendChatMessage("~g~WebRTC started!");
+    rtcCef = new CefHelper('https://www.sa-roleplay.com/pls/', false);
+    rtcCef.show();
 });
-/// <reference path="types-gtanetwork/index.d.ts" />
-"use strict";
-API.onServerEventTrigger.connect(function (name, args) {
-    if (name == "player:login:show") {
-        var cef = new CefHelper('client/resources/pages/account/login.html');
-        cef.show();
-        API.sendNotification("Login!");
-    }
+API.onResourceStop.connect(function () {
+    rtcCef.hide();
 });
 /// <reference path="types-gtanetwork/index.d.ts" />
 /// <reference path="libs/CefHelper.ts" />
 /// <reference path="libs/HUD.ts" />
 /// <reference path="Camera.ts" />
 /// <reference path="Account.ts" />
+/// <reference path="WebRTC.ts" />
 "use strict";
 var cef = null;
 var hud = null;

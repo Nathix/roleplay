@@ -20,7 +20,7 @@ namespace SARoleplay.Player
         public ConnectionManager()
         {
             API.onPlayerConnected += OnPlayerConnected;
-            API.onPlayerFinishedDownload += OnPlayerFinishedDownload;
+            //API.onPlayerFinishedDownload += OnPlayerFinishedDownload;
             API.onPlayerDisconnected += OnPlayerDisconnected;
         }
 
