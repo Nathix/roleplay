@@ -1,4 +1,5 @@
 # Overview
+Please don't move stuff around and break the phone
 
 This plugin allows rendering of (near) fully functional phones. It uses an API that is intended to be scalable enough for most modern-day mobile operating systems to be compatible.
 If you are wishing to develop with it then refer below
