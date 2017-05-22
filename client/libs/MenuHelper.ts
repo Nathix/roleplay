@@ -50,7 +50,9 @@ class MenuHelper {
     }
 
     callSelectedCallback(menu: NativeUI.UIMenu, item: any) {
-        return this.selectedCallBack(menu, item);
+        if (this.selectedCallBack != null)
+            return this.selectedCallBack(menu, item);
+        return false;
     }
 
     addMenuItem(label: string, description: string) {
@@ -74,10 +76,12 @@ class MenuHelper {
         return temp;
     }
 
-    addListItem(label: string, description: string, list: string, index: number) {
+    addListItem(label: string, description: string, list: string, index: number, callback?: Function) {
         var temp = API.createListItem(label, description, list, index);
         this.element.AddItem(temp);
         temp.Activated.connect(this.callSelectedCallback);
+        if (callback != null)
+            temp.OnListChanged.connect(function (listItem, newIndex) { callback(listItem, newIndex); });
         this.element.RefreshIndex();
         return temp;
     }
