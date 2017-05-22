@@ -18,8 +18,7 @@ class MenuHelper {
         this.anchor = (anchor == null) ? 6 : anchor;
         this.open = false;
         
-        var test = API.createMenu("PLAYER", 0, 0, 6);
-        this.element = test;
+        this.element = API.createMenu(title, subtitle, x, y, anchor);
         this.element.ResetKey(menuControl.Back);
         this.element.Visible = true;
         
