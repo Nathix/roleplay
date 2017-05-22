@@ -97,6 +97,14 @@ namespace SARoleplay
                     };
                 });
             }
+            catch(System.Security.Cryptography.CryptographicException e)
+            {
+                ConsoleColor tmp = Console.BackgroundColor;
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("[VOICE] Voice server not started");
+                Console.Write(e.Message);
+                Console.BackgroundColor = tmp;
+            }
             catch(Exception e)
             {
                 Console.WriteLine(e);

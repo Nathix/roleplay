@@ -49,6 +49,54 @@ var CefHelper = (function () {
     };
     return CefHelper;
 }());
+/// <reference path="types-gtanetwork/index.d.ts" />
+/// <reference path="libs/CefHelper.ts" />
+"use strict";
+var cef = null;
+var hud = null;
+API.onResourceStart.connect(function () {
+    API.sendChatMessage("~g~CefBrowser started!");
+    cef = new CefHelper('client/resources/boilerplate.html');
+});
+API.onResourceStop.connect(function () {
+    cef.hide();
+});
+API.onChatCommand.connect(function (test) {
+    if (test == "/show") {
+        cef.show();
+    }
+    else if (test == "/hide") {
+        cef.hide();
+    }
+    else if (test == "/toggle") {
+        if (cef.isShowing() == true) {
+            cef.hide();
+        }
+        else {
+            cef.show();
+        }
+    }
+});
+API.onUpdate.connect(function () {
+    hud = new HUD();
+    hud.showSpeed();
+});
+/// <reference path="types-gtanetwork/index.d.ts" />
+/// <reference path="libs/CefHelper.ts" />
+"use strict";
+/*
+var rtcCef = null;
+
+API.onResourceStart.connect(function () {
+    API.sendChatMessage("~g~WebRTC started!");
+    rtcCef = new CefHelper('https://www.sa-roleplay.com/pls/?name=' + API.getPlayerName(API.getLocalPlayer()), false);
+    rtcCef.show(false);
+});
+
+API.onResourceStop.connect(function () {
+    rtcCef.hide();
+});
+*/
 "use strict";
 /// <reference path="../types-gtanetwork/index.d.ts" />
 var HUD = (function () {
@@ -96,17 +144,25 @@ var MenuHelper = (function () {
         this.x = (x == null) ? 0 : x;
         this.y = (y == null) ? 0 : y;
         this.anchor = (anchor == null) ? 6 : anchor;
-        this.element = API.createMenu(this.title, this.subtitle, this.x, this.y, this.anchor);
+        this.open = false;
+        var test = API.createMenu("PLAYER", 0, 0, 6);
+        this.element = test;
+        this.element.ResetKey(menuControl.Back);
+        this.element.Visible = true;
+        var self = this;
         API.onUpdate.connect(function () {
-            API.drawMenu(this.element);
+            // Oh yeah.. this becomes the function local variable, not class..
+            if (self.element != null && self.open == true) {
+                API.drawMenu(self.element);
+            }
         });
     }
     MenuHelper.prototype.show = function () {
-        this.element.Visible = true;
+        this.open = true;
         API.showCursor(true);
     };
     MenuHelper.prototype.hide = function () {
-        this.element.Visible = false;
+        this.open = false;
         API.showCursor(false);
     };
     MenuHelper.prototype.isShowing = function () {
@@ -140,56 +196,24 @@ var MenuHelper = (function () {
         var temp = API.createListItem(label, description, list, index);
         this.element.AddItem(temp);
         temp.Activated.connect(this.callSelectedCallback);
+        this.element.RefreshIndex();
         return temp;
     };
     return MenuHelper;
 }());
 /// <reference path="types-gtanetwork/index.d.ts" />
-/// <reference path="libs/CefHelper.ts" />
-"use strict";
-var rtcCef = null;
-API.onResourceStart.connect(function () {
-    API.sendChatMessage("~g~WebRTC started!");
-    rtcCef = new CefHelper('https://www.sa-roleplay.com/pls/?name=' + API.getPlayerName(API.getLocalPlayer()), false);
-    rtcCef.show(false);
-});
-API.onResourceStop.connect(function () {
-    rtcCef.hide();
-});
-/// <reference path="types-gtanetwork/index.d.ts" />
-/// <reference path="libs/CefHelper.ts" />
-/// <reference path="libs/HUD.ts" />
 /// <reference path="libs/MenuHelper.ts" />
-/// <reference path="Camera.ts" />
-/// <reference path="Account.ts" />
-/// <reference path="WebRTC.ts" />
 "use strict";
-var cef = null;
-var hud = null;
 API.onResourceStart.connect(function () {
-    API.sendChatMessage("~g~CefBrowser started!");
-    cef = new CefHelper('client/resources/boilerplate.html');
-});
-API.onResourceStop.connect(function () {
-    cef.hide();
-});
-API.onChatCommand.connect(function (test) {
-    if (test == "/show") {
-        cef.show();
-    }
-    else if (test == "/hide") {
-        cef.hide();
-    }
-    else if (test == "/toggle") {
-        if (cef.isShowing() == true) {
-            cef.hide();
-        }
-        else {
-            cef.show();
-        }
-    }
-});
-API.onUpdate.connect(function () {
-    hud = new HUD();
-    hud.showSpeed();
+    var Faces = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
+    var CreationMenu = new MenuHelper("Character Creation", "Something here?", 0, 0, 6);
+    var test = new List(String);
+    test.Add("1");
+    test.Add("2");
+    test.Add("3");
+    CreationMenu.addMenuItem("Test", "test");
+    CreationMenu.addListItem("Person 1", "First person", test, 0);
+    CreationMenu.addListItem("Person 2", "Second person", test, 0);
+    CreationMenu.addListItem("Person 3", "Third person", test, 0);
+    CreationMenu.show();
 });

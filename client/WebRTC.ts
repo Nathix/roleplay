@@ -1,6 +1,7 @@
 ﻿/// <reference path="types-gtanetwork/index.d.ts" />
 /// <reference path="libs/CefHelper.ts" />
 
+/*
 var rtcCef = null;
 
 API.onResourceStart.connect(function () {
@@ -12,3 +13,4 @@ API.onResourceStart.connect(function () {
 API.onResourceStop.connect(function () {
     rtcCef.hide();
 });
+*/

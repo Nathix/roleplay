@@ -1,5 +1,6 @@
 ﻿/// <reference path="../types-gtanetwork/index.d.ts" />
 class MenuHelper {
+    open: boolean;
     element: NativeUI.UIMenu;
     selectedCallBack: Function;
     
@@ -15,21 +16,29 @@ class MenuHelper {
         this.x = (x == null) ? 0 : x;
         this.y = (y == null) ? 0 : y;
         this.anchor = (anchor == null) ? 6 : anchor;
-
-        this.element = API.createMenu(this.title, this.subtitle, this.x, this.y, this.anchor);
-
+        this.open = false;
+        
+        var test = API.createMenu("PLAYER", 0, 0, 6);
+        this.element = test;
+        this.element.ResetKey(menuControl.Back);
+        this.element.Visible = true;
+        
+        var self = this;
         API.onUpdate.connect(function () {
-            API.drawMenu(this.element);
+            // Oh yeah.. this becomes the function local variable, not class..
+            if (self.element != null && self.open == true) {
+                API.drawMenu(self.element);
+            }
         });
     }
 
     show() {
-        this.element.Visible = true;
+        this.open = true;
         API.showCursor(true);
     }
 
     hide() {
-        this.element.Visible = false;
+        this.open = false;
         API.showCursor(false);
     }
 
@@ -70,6 +79,7 @@ class MenuHelper {
         var temp = API.createListItem(label, description, list, index);
         this.element.AddItem(temp);
         temp.Activated.connect(this.callSelectedCallback);
+        this.element.RefreshIndex();
         return temp;
     }
 }
