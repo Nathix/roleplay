@@ -74,6 +74,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="libs\HUD.ts" />
+    <TypeScriptCompile Include="libs\MenuHelper.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Main.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

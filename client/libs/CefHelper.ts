@@ -1,4 +1,5 @@
-﻿class CefHelper {
+﻿/// <reference path="../types-gtanetwork/index.d.ts" />
+class CefHelper {
     path: string;
     open: boolean;
     local: boolean;

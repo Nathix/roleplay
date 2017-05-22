@@ -1,6 +1,7 @@
 ﻿/// <reference path="types-gtanetwork/index.d.ts" />
 /// <reference path="libs/CefHelper.ts" />
 /// <reference path="libs/HUD.ts" />
+/// <reference path="libs/MenuHelper.ts" />
 /// <reference path="Camera.ts" />
 /// <reference path="Account.ts" />
 /// <reference path="WebRTC.ts" />

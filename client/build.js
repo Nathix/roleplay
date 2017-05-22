@@ -18,6 +18,7 @@ API.onServerEventTrigger.connect(function (name, args) {
     }
 });
 "use strict";
+/// <reference path="../types-gtanetwork/index.d.ts" />
 var CefHelper = (function () {
     function CefHelper(resourcePath, local) {
         this.path = resourcePath;
@@ -86,6 +87,63 @@ var HUD = (function () {
     };
     return HUD;
 }());
+"use strict";
+/// <reference path="../types-gtanetwork/index.d.ts" />
+var MenuHelper = (function () {
+    function MenuHelper(title, subtitle, x, y, anchor) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.x = (x == null) ? 0 : x;
+        this.y = (y == null) ? 0 : y;
+        this.anchor = (anchor == null) ? 6 : anchor;
+        this.element = API.createMenu(this.title, this.subtitle, this.x, this.y, this.anchor);
+        API.onUpdate.connect(function () {
+            API.drawMenu(this.element);
+        });
+    }
+    MenuHelper.prototype.show = function () {
+        this.element.Visible = true;
+        API.showCursor(true);
+    };
+    MenuHelper.prototype.hide = function () {
+        this.element.Visible = false;
+        API.showCursor(false);
+    };
+    MenuHelper.prototype.isShowing = function () {
+        return this.element.Visible;
+    };
+    MenuHelper.prototype.setSelectedCallback = function (callback) {
+        this.selectedCallBack = callback;
+    };
+    MenuHelper.prototype.callSelectedCallback = function (menu, item) {
+        return this.selectedCallBack(menu, item);
+    };
+    MenuHelper.prototype.addMenuItem = function (label, description) {
+        var temp = API.createMenuItem(label, description);
+        this.element.AddItem(temp);
+        temp.Activated.connect(this.callSelectedCallback);
+        return temp;
+    };
+    MenuHelper.prototype.addColoredItem = function (label, description, hexColor, hexHighlightColor) {
+        var temp = API.createColoredItem(label, description, hexColor, hexHighlightColor);
+        this.element.AddItem(temp);
+        temp.Activated.connect(this.callSelectedCallback);
+        return temp;
+    };
+    MenuHelper.prototype.addCheckboxItem = function (label, description, isChecked) {
+        var temp = API.createCheckboxItem(label, description, isChecked);
+        this.element.AddItem(temp);
+        temp.Activated.connect(this.callSelectedCallback);
+        return temp;
+    };
+    MenuHelper.prototype.addListItem = function (label, description, list, index) {
+        var temp = API.createListItem(label, description, list, index);
+        this.element.AddItem(temp);
+        temp.Activated.connect(this.callSelectedCallback);
+        return temp;
+    };
+    return MenuHelper;
+}());
 /// <reference path="types-gtanetwork/index.d.ts" />
 /// <reference path="libs/CefHelper.ts" />
 "use strict";
@@ -101,6 +159,7 @@ API.onResourceStop.connect(function () {
 /// <reference path="types-gtanetwork/index.d.ts" />
 /// <reference path="libs/CefHelper.ts" />
 /// <reference path="libs/HUD.ts" />
+/// <reference path="libs/MenuHelper.ts" />
 /// <reference path="Camera.ts" />
 /// <reference path="Account.ts" />
 /// <reference path="WebRTC.ts" />
