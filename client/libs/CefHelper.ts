@@ -7,6 +7,7 @@ class CefHelper {
 
     constructor(resourcePath: string, local?: boolean) {
         this.path = resourcePath;
+        this.local = (local == null)? true : local;
         this.open = false;
     }
 
