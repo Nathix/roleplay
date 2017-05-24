@@ -1,6 +1,5 @@
 ﻿/// <reference path="types-gtanetwork/index.d.ts" />
 /// <reference path="libs/CefHelper.ts" />
-/// <reference path="libs/HUD.ts" />
 
 var cef = null;
 var hud = null;
@@ -45,6 +44,6 @@ API.onChatCommand.connect(function(c) {
 });
 
 API.onUpdate.connect(function() {
-  hud = new HUD();
-  hud.showSpeed();
+    hud = new HUD();
+    hud.showSpeed();
 });

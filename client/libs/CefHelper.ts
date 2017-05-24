@@ -1,24 +1,27 @@
-﻿class CefHelper {
+﻿/// <reference path="../types-gtanetwork/index.d.ts" />
+class CefHelper {
     path: string;
     open: boolean;
+    local: boolean;
     browser: GTANetwork.GUI.Browser;
 
-    constructor(public resourcePath: string) {
+    constructor(resourcePath: string, local?: boolean) {
         this.path = resourcePath;
         this.open = false;
     }
 
-    show() {
+    show(cursor?: boolean) {
         if (this.open === false) {
             this.open = true;
 
             var resolution = API.getScreenResolution();
 
-            this.browser = API.createCefBrowser(resolution.Width, resolution.Height, true);
+            this.browser = API.createCefBrowser(resolution.Width, resolution.Height, this.local);
             API.waitUntilCefBrowserInit(this.browser);
             API.setCefBrowserPosition(this.browser, 0, 0);
             API.loadPageCefBrowser(this.browser, this.path);
-            API.showCursor(!API.isCursorShown());
+
+            API.showCursor((cursor != null) ? cursor : true);
         }
     }
 
