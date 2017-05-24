@@ -6,10 +6,12 @@ var registerCef = null;
 API.onServerEventTrigger.connect(function (name, args) {
     if (name == "player:login:show") {
         API.setCanOpenChat(false);
-        var fuckSake = Math.floor(Math.random() * 1000000).toString();
         loginCef = new CefHelper('client/resources/pages/account/login.html');
         loginCef.show();
-        API.sendNotification("Login!");
+    }
+    if (name == "player:login:hide") {
+        loginCef.hide();
+        API.setCanOpenChat(true);
     }
 });
 function LoginHandler(email, password) {
