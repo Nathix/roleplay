@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GTANetworkServer;
 using GTANetworkShared;
+using Newtonsoft.Json.Linq;
 
 namespace SARoleplay.Player
 {
@@ -20,8 +21,9 @@ namespace SARoleplay.Player
         public ConnectionManager()
         {
             API.onPlayerConnected += OnPlayerConnected;
-            //API.onPlayerFinishedDownload += OnPlayerFinishedDownload;
+            API.onPlayerFinishedDownload += OnPlayerFinishedDownload;
             API.onPlayerDisconnected += OnPlayerDisconnected;
+            API.onClientEventTrigger += OnClientEventTrigger;
         }
 
         public void OnPlayerConnected(Client player)
@@ -43,6 +45,21 @@ namespace SARoleplay.Player
         public void OnPlayerDisconnected(Client player, string reason)
         {
             // Save player
+        }
+
+        public void OnClientEventTrigger(Client player, string eventName, params object[] arguments)
+        {
+            if(eventName == "player:login:process")
+            {
+                Dictionary<string, string> data = new Dictionary<string, string>();
+                data.Add("email", arguments[0].ToString());
+                data.Add("password", arguments[0].ToString());
+                data.Add("scname", player.socialClubName);
+                string result = Utils.WebHelper.PostData("account/login", data);
+                JObject test = JObject.Parse(result);
+
+                Console.WriteLine(player.name + " Attempted to login: " + result.ToString());
+            }
         }
     }
 }
