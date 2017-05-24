@@ -1,11 +1,13 @@
 ﻿<meta>
   <info name="Roleplay" author="San Andreas Roleplay Development Team" type="script" />
 
-  
   <script src="server/bin/Debug/server.dll" type="server" lang="compiled" />
   <script src="client/build.js" type="client" lang="javascript" />
 
-  <file src="client/resources/boilerplate.html" />
+  <assembly ref="Newtonsoft.Json.dll" />
+  <assembly ref="Fleck.dll" />
+  <assembly ref="System.Xml.dll" />
+  <assembly ref="System.Xml.Linq.dll" />
 
   <!-- CSS & CSS Requirements -->
   <file src="client/resources/css/bootstrap.min.css" />
@@ -13,52 +15,47 @@
   <file src="client/resources/fonts/glyphicons-halflings-regular.ttf" />
   <file src="client/resources/js/jquery-3.2.1.min.js" />
   <file src="client/resources/js/bootstrap.min.js" />
-  
+
   <!-- Account -->
   <file src="client/resources/pages/account/login.html" />
 
-  <assembly ref="Newtonsoft.Json.dll" />
-  <assembly ref="Fleck.dll" />
-  <assembly ref="System.Xml.dll" />
-  <assembly ref="System.Xml.Linq.dll" />
-
   <!-- Begin Phone -->
 	<!-- Device and Scripts -->
-	<file src="index.html" />
-	<file src="inc/js/run.js" />
-	<file src="inc/js/jquery.js" />
-	<file src="inc/fonts/fontawesome-webfont.ttf" /> 
-	<file src="style.css" />
-	<file src="inc/css/font-awesome.min.css" />
+	<file src="client/phone/index.html" />
+	<file src="client/phone/inc/js/run.js" />
+	<file src="client/phone/inc/js/jquery.js" />
+	<file src="client/phone/inc/fonts/fontawesome-webfont.ttf" /> 
+	<file src="client/phone/style.css" />
+	<file src="client/phone/inc/css/font-awesome.min.css" />
 
 	<!-- Wallpapers -->
-	<file src="wallpapers/background.jpg" />
+	<file src="client/phone/wallpapers/background.jpg" />
 
 	<!-- Phones -->
 		<!-- iPhone -->
-		<file src="phones/iphone/iphone.png" />
-		<file src="phones/iphone/iphone.json" />
+		<file src="client/phone/phones/iphone/iphone.png" />
+		<file src="client/phone/phones/iphone/iphone.json" />
 
 		<!-- Android -->
 
 	<!-- Apps -->
 		<!-- 2048 -->
-		<file src="apps/2048/index.html" />
-		<file src="apps/2048/style/main.css" />
-		<file src="apps/2048/js/bind_polyfill.js" />
-		<file src="apps/2048/js/classlist_polyfill.js" />
-		<file src="apps/2048/js/animframe_polyfill.js" />
-		<file src="apps/2048/js/keyboard_input_manager.js" />
-		<file src="apps/2048/js/html_actuator.js" />
-		<file src="apps/2048/js/grid.js" />
-		<file src="apps/2048/js/tile.js" />
-		<file src="apps/2048/js/local_storage_manager.js" />
-		<file src="apps/2048/js/game_manager.js" />
-		<file src="apps/2048/js/application.js"/>	
-		<file src="apps/2048/style/fonts/clear-sans.css"/>	
-		<file src="apps/2048/style/fonts/ClearSans-Light-webfont.eot"/>	
+		<file src="client/phone/apps/2048/index.html" />
+		<file src="client/phone/apps/2048/style/main.css" />
+		<file src="client/phone/apps/2048/js/bind_polyfill.js" />
+		<file src="client/phone/apps/2048/js/classlist_polyfill.js" />
+		<file src="client/phone/apps/2048/js/animframe_polyfill.js" />
+		<file src="client/phone/apps/2048/js/keyboard_input_manager.js" />
+		<file src="client/phone/apps/2048/js/html_actuator.js" />
+		<file src="client/phone/apps/2048/js/grid.js" />
+		<file src="client/phone/apps/2048/js/tile.js" />
+		<file src="client/phone/apps/2048/js/local_storage_manager.js" />
+		<file src="client/phone/apps/2048/js/game_manager.js" />
+		<file src="client/phone/apps/2048/js/application.js"/>	
+		<file src="client/phone/apps/2048/style/fonts/clear-sans.css"/>	
+		<file src="client/phone/apps/2048/style/fonts/ClearSans-Light-webfont.eot"/>	
 		
 		<!-- Main Script -->
-		<script src="./main.js" type="client" lang="javascript" />
+		<script src="client/phone/main.js" type="client" lang="javascript" />
   <!-- End Phone -->
 </meta>

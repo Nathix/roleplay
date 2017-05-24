@@ -34,9 +34,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="resources\boilerplate.html">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="package.json" />
     <Content Include="resources\css\bootstrap.css" />
     <Content Include="resources\css\bootstrap.min.css" />

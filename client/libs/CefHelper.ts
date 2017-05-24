@@ -40,5 +40,5 @@ class CefHelper {
 
     isShowing() {
         return this.open;
-    }
+    } 
 }
