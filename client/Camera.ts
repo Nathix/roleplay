@@ -7,4 +7,7 @@ API.onServerEventTrigger.connect(function (name, args) {
 
         API.interpolateCameras(startCamera, endCamera, args[0], true, true);
     }
+    else if (name == "player:camera:stop") {
+        API.setGameplayCameraActive();
+    }
 });

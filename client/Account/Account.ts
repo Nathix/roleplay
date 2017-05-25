@@ -2,23 +2,28 @@
 
 var loginCef = null;
 var registerCef = null;
+var spamProtection = false;
 
 API.onServerEventTrigger.connect(function (name, args) {
     if (name == "player:login:show") {
         API.setCanOpenChat(false);
         loginCef = new CefHelper('client/resources/pages/account/login.html');
         loginCef.show();
+        spamProtection = false;
     }
-    if (name == "player:login:hide") {
+    else if (name == "player:login:hide") {
         loginCef.hide();
         API.setCanOpenChat(true);
+        spamProtection = false;
+    }
+    else if (name == "player:login:reset") {
+        spamProtection = false;
     }
 }); 
 
-function LoginHandler(email, password) {
-    API.sendChatMessage(email);
-    API.sendChatMessage(password);
-    API.triggerServerEvent("player:login:process", email, password);
+function LoginHandler(username, password) {
+    spamProtection = true;
+    API.triggerServerEvent("player:login:process", username, password);
 }
 
 function RegisterHandler() {

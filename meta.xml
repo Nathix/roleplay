@@ -54,8 +54,5 @@
 		<file src="client/phone/apps/2048/js/application.js"/>	
 		<file src="client/phone/apps/2048/style/fonts/clear-sans.css"/>	
 		<file src="client/phone/apps/2048/style/fonts/ClearSans-Light-webfont.eot"/>	
-		
-		<!-- Main Script -->
-		<script src="client/phone/main.js" type="client" lang="javascript" />
   <!-- End Phone -->
 </meta>

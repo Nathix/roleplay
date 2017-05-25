@@ -47,6 +47,11 @@ namespace SARoleplay
             return Players;
         }
 
+        public static PlayerController GetPlayerFromHandle(NetHandle player)
+        {
+            return Players.Where(x => x.player == player).ToList<PlayerController>()[0];
+        }
+
         /* Vehicle Entity Functions */
         public static void Add(VehicleController vehicle)
         {
