@@ -10,8 +10,8 @@ namespace SARoleplay.Data
     {
         public int Id { get; set; }
         public int AccountId { get; set; }
-        public DateTime RegisteredDate { get; set; }
-        public DateTime LastOnlineData { get; set; }
+        public string RegisteredDate { get; set; }
+        public string LastOnlineDate { get; set; }
         public Boolean Online { get; set; }
         public int PlaytimeHours { get; set; }
         public int PlaytimeMinutes { get; set; }

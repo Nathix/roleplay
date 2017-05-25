@@ -70,15 +70,15 @@ namespace SARoleplay.Player
                     }
                     else if(test.Value<string>("status") == "success")
                     {
-                        JObject accountData = test.Value<JObject>("data");
-                        Utils.ChatHelper.SendSuccessMessage(player, "Welcome back " + accountData.Value<string>("social_club_name") + "!");
-                        API.triggerClientEvent(player, "player:camera:stop");
-                        API.triggerClientEvent(player, "player:login:hide");
-                        API.triggerClientEvent(player, "player:character:selection:show");
-
                         PlayerController playerController = EntityManager.GetPlayerFromClient(player);
                         if (playerController != null)
                         {
+                            JObject accountData = test.Value<JObject>("data");
+                            Utils.ChatHelper.SendSuccessMessage(player, "Welcome back " + accountData.Value<string>("social_club_name") + "!");
+                            API.triggerClientEvent(player, "player:camera:stop");
+                            API.triggerClientEvent(player, "player:login:hide");
+                            API.triggerClientEvent(player, "player:character:selection:show");
+
                             playerController.AccountData.Id = accountData.Value<int>("id");
                             playerController.AccountData.ForumId = accountData.Value<int>("forum_id");
                             playerController.AccountData.SocialClubName = accountData.Value<string>("social_club_name");
@@ -93,6 +93,10 @@ namespace SARoleplay.Player
                             //player.collisionless = false;
                             //player.invincible = false;
                             //player.freezePosition = false;
+
+                            var charData = Utils.WebHelper.GetData("account/characters/get/" + playerController.AccountData.Id);
+                            API.triggerClientEvent(player, "player:character:selection:data", charData);
+
                         }
                         else
                         {
@@ -103,6 +107,7 @@ namespace SARoleplay.Player
                     }
                     else
                     {
+                        // This should be impossible but just incase.
                         Utils.ChatHelper.SendErrorMessage(player, "Unknown error occurred.");
                     }
                 }
@@ -111,6 +116,20 @@ namespace SARoleplay.Player
                     Utils.ChatHelper.SendErrorMessage(player, "Invalid username / password! Please try again.");
                 }
                 API.triggerClientEvent(player, "player:login:reset");
+            }
+            else if(eventName == "player:character:selection:selected")
+            {
+                PlayerController playerController = EntityManager.GetPlayerFromClient(player);
+                if (playerController != null)
+                {
+                    playerController.LoadCharacter((int)arguments[0]);
+                }
+                else
+                {
+                    // This should be impossible but just incase.
+                    Console.WriteLine("Couldn't find a player controller for player " + player.name + " ~ " + player.socialClubName);
+                    player.kick("Unknown error occured.");
+                }
             }
         }
     }
