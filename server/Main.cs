@@ -29,15 +29,6 @@ namespace SARoleplay
 
             Utils.WebHelper.GetData("reset");
 
-            string test = Utils.WebHelper.GetData("test");
-            Console.WriteLine("GET TEST: " + test);
-
-            Dictionary<string, string> data = new Dictionary<string, string>();
-            data.Add("email", "test@test.com");
-            data.Add("password", "test");
-            test = Utils.WebHelper.PostData("test2", data);
-            Console.WriteLine("POST TEST: " + test);
-
             EntityManager.Init();
         }
 

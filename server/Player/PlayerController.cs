@@ -23,6 +23,7 @@ namespace SARoleplay.Player
         {
             API.onPlayerConnected += OnPlayerConnected;
             API.onPlayerDisconnected += OnPlayerDisconnected;
+            API.onResourceStop += OnResourceStop;
         }
 
         public PlayerController(Client player)
@@ -48,8 +49,42 @@ namespace SARoleplay.Player
             EntityManager.GetPlayerFromClient(player).UnloadAccount();
         }
 
+        public void OnResourceStop()
+        {
+            var pcs = EntityManager.GetPlayerControllers();
+            for (int i = 0; i < pcs.Count; i++)
+            {
+                PlayerController pc = pcs[i];
+                pc.UnloadAccount();
+            }
+        }
+
         public void UnloadAccount()
         {
+            Console.WriteLine("Saving player account data for: " + this.player.name);
+
+            JObject data = new JObject();
+
+            data.Add("id", this.CharacterData.Id);
+            data.Add("account_id", this.CharacterData.AccountId);
+            data.Add("firstname", this.CharacterData.FirstName);
+            data.Add("lastname", this.CharacterData.LastName);
+            data.Add("playtime_hours", this.CharacterData.PlaytimeHours);
+            data.Add("playtime_minutes", this.CharacterData.PlaytimeMinutes);
+            data.Add("money", this.CharacterData.Money);
+            data.Add("bank", this.CharacterData.Bank);
+            data.Add("job_id", this.CharacterData.JobID);
+            data.Add("faction_id", this.CharacterData.FactionID);
+
+            Vector3 pos = this.player.position;
+            Vector3 rot = this.player.rotation;
+            data.Add("position_x", pos.X);
+            data.Add("position_y", pos.Y);
+            data.Add("position_z", pos.Z);
+            data.Add("rotation", pos.Z);
+            
+            Utils.WebHelper.PostData("account/characters/save/" + this.CharacterData.Id, data.ToString());
+
             EntityManager.Remove(this);
         }
 
@@ -80,11 +115,13 @@ namespace SARoleplay.Player
                 this.CharacterData.Online = true;
 
                 API.triggerClientEvent(player, "player:character:selection:hide");
-                player.movePosition(new Vector3(this.CharacterData.PositionX, this.CharacterData.PositionY, this.CharacterData.PositionZ), 3);
+                player.movePosition(new Vector3(this.CharacterData.PositionX, this.CharacterData.PositionY, this.CharacterData.PositionZ), 1);
+                player.moveRotation(new Vector3(0, 0, this.CharacterData.Rotation), 1);
 
                 player.collisionless = false;
                 player.invincible = false;
                 player.freezePosition = false;
+                player.nametagVisible = true;
                 this.SelectedCharacter = true;
             }
         }

@@ -244,6 +244,19 @@ API.onServerEventTrigger.connect(function (eventname, args) {
         selectingCharacter = false;
         API.showCursor(false);
         API.setGameplayCameraActive();
+        var allPeds = API.getAllPeds();
+        for (var i = 0; i < allPeds.Length; i++) {
+            if (peds[allPeds[i].Value] != null) {
+                API.deleteEntity(allPeds[i]);
+                peds[allPeds[i].Value] = null;
+            }
+        }
+        if (ped1 != null)
+            API.deleteEntity(ped1);
+        if (ped2 != null)
+            API.deleteEntity(ped2);
+        if (ped3 != null)
+            API.deleteEntity(ped3);
     }
 });
 API.onUpdate.connect(function () {
@@ -290,6 +303,8 @@ API.onUpdate.connect(function () {
     }
 });
 API.onKeyDown.connect(function (sender, e) {
+    if (!selectionActive)
+        return false;
     if (e.KeyCode == Keys.Space) {
         if (lastCharacterValue != null) {
             if (peds[lastCharacterValue] != null) {
