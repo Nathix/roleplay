@@ -11,7 +11,6 @@ namespace SARoleplay
 {
     class Main : Script
     {
-        int currentDim = 10000;
         public Main()
         {
             API.onResourceStart += OnResourceStart;
@@ -46,10 +45,7 @@ namespace SARoleplay
 
         public void SpawnPlayer(Client player)
         {
-            currentDim = currentDim + 1;
-            API.setEntityDimension(player, currentDim);
-            API.setPlayerSkin(player, PedHash.FreemodeMale01);
-            API.setEntityPosition(player, new Vector3(246.4335, 214.0429, 106.2868));
+
         }
 
         public void OnUpdate()

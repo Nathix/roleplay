@@ -35,6 +35,44 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="package.json" />
+    <Content Include="phone\apps\2048\index.html" />
+    <Content Include="phone\apps\2048\meta\apple-touch-icon.png" />
+    <Content Include="phone\apps\2048\meta\apple-touch-startup-image-640x1096.png" />
+    <Content Include="phone\apps\2048\meta\apple-touch-startup-image-640x920.png" />
+    <Content Include="phone\apps\2048\style\fonts\clear-sans.css" />
+    <Content Include="phone\apps\2048\style\fonts\ClearSans-Bold-webfont.eot" />
+    <Content Include="phone\apps\2048\style\fonts\ClearSans-Bold-webfont.svg" />
+    <Content Include="phone\apps\2048\style\fonts\ClearSans-Bold-webfont.woff" />
+    <Content Include="phone\apps\2048\style\fonts\ClearSans-Light-webfont.eot" />
+    <Content Include="phone\apps\2048\style\fonts\ClearSans-Light-webfont.svg" />
+    <Content Include="phone\apps\2048\style\fonts\ClearSans-Light-webfont.woff" />
+    <Content Include="phone\apps\2048\style\fonts\ClearSans-Regular-webfont.eot" />
+    <Content Include="phone\apps\2048\style\fonts\ClearSans-Regular-webfont.svg" />
+    <Content Include="phone\apps\2048\style\fonts\ClearSans-Regular-webfont.woff" />
+    <Content Include="phone\apps\2048\style\helpers.scss" />
+    <Content Include="phone\apps\2048\style\main.css" />
+    <Content Include="phone\apps\2048\style\main.scss" />
+    <Content Include="phone\inc\css\font-awesome.css" />
+    <Content Include="phone\inc\css\font-awesome.min.css" />
+    <Content Include="phone\inc\fonts\fontawesome-webfont.eot" />
+    <Content Include="phone\inc\fonts\fontawesome-webfont.svg" />
+    <Content Include="phone\inc\fonts\fontawesome-webfont.ttf" />
+    <Content Include="phone\inc\fonts\fontawesome-webfont.woff" />
+    <Content Include="phone\inc\fonts\fontawesome-webfont.woff2" />
+    <Content Include="phone\inc\fonts\FontAwesome.otf" />
+    <Content Include="phone\index.html" />
+    <Content Include="phone\phones\android\..psd" />
+    <Content Include="phone\phones\android\android-back.png" />
+    <Content Include="phone\phones\android\android-front.png" />
+    <Content Include="phone\phones\android\android.json" />
+    <Content Include="phone\phones\android\android.zip" />
+    <Content Include="phone\phones\iphone\iphone.json" />
+    <Content Include="phone\phones\iphone\iphone.png" />
+    <Content Include="phone\phones\iphone\iphone.scss" />
+    <Content Include="phone\README.md" />
+    <Content Include="phone\style.css" />
+    <Content Include="phone\style.scss" />
+    <Content Include="phone\wallpapers\background.jpg" />
     <Content Include="resources\css\bootstrap.css" />
     <Content Include="resources\css\bootstrap.min.css" />
     <Content Include="resources\css\login.css" />
@@ -52,6 +90,22 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="libs\" />
+    <Folder Include="Account\" />
+    <Folder Include="phone\" />
+    <Folder Include="phone\apps\" />
+    <Folder Include="phone\apps\2048\" />
+    <Folder Include="phone\apps\2048\js\" />
+    <Folder Include="phone\apps\2048\meta\" />
+    <Folder Include="phone\apps\2048\style\" />
+    <Folder Include="phone\apps\2048\style\fonts\" />
+    <Folder Include="phone\inc\" />
+    <Folder Include="phone\inc\css\" />
+    <Folder Include="phone\inc\fonts\" />
+    <Folder Include="phone\inc\js\" />
+    <Folder Include="phone\phones\" />
+    <Folder Include="phone\phones\android\" />
+    <Folder Include="phone\phones\iphone\" />
+    <Folder Include="phone\wallpapers\" />
     <Folder Include="resources\fonts\" />
     <Folder Include="resources\pages\account\" />
     <Folder Include="resources\" />
@@ -61,13 +115,16 @@
     <Folder Include="types-gtanetwork\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Account.ts">
+    <TypeScriptCompile Include="Account\Account.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Account\CharacterSelection.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Camera.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="CharacterCreation.ts">
+    <TypeScriptCompile Include="Account\CharacterCreation.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="libs\CefHelper.ts">
@@ -96,6 +153,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="build.js" />
+    <Compile Include="phone\apps\2048\js\animframe_polyfill.js" />
+    <Compile Include="phone\apps\2048\js\application.js" />
+    <Compile Include="phone\apps\2048\js\bind_polyfill.js" />
+    <Compile Include="phone\apps\2048\js\classlist_polyfill.js" />
+    <Compile Include="phone\apps\2048\js\game_manager.js" />
+    <Compile Include="phone\apps\2048\js\grid.js" />
+    <Compile Include="phone\apps\2048\js\html_actuator.js" />
+    <Compile Include="phone\apps\2048\js\keyboard_input_manager.js" />
+    <Compile Include="phone\apps\2048\js\local_storage_manager.js" />
+    <Compile Include="phone\apps\2048\js\tile.js" />
+    <Compile Include="phone\inc\js\jquery.js" />
+    <Compile Include="phone\inc\js\run.js" />
     <Compile Include="resources\js\bootstrap.js" />
     <Compile Include="resources\js\bootstrap.min.js" />
     <Compile Include="resources\js\jquery-3.2.1.js" />

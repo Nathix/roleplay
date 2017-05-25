@@ -10,7 +10,7 @@
     <div class="card card-container">
         <form class="form-signin">
             <span id="reauth-email" class="reauth-email"></span>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" id="login">Login</button>
             <button class="btn btn-lg btn-secondary btn-block btn-signin" type="submit" id="register">Register</button>
@@ -22,9 +22,9 @@
          document.getElementById("login").onclick = function (e) {
             e.preventDefault();
 
-            var email = document.getElementById("inputEmail").value;
+            var username = document.getElementById("inputUsername").value;
             var password = document.getElementById("inputPassword").value;
-            resourceCall("LoginHandler", email, password);
+            resourceCall("LoginHandler", username, password);
         };
         document.getElementById("register").onclick = function (e) {
             e.preventDefault();

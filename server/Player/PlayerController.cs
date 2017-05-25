@@ -14,15 +14,29 @@ namespace SARoleplay.Player
         public Data.Character CharacterData;
         public NetHandle player;
 
+        public Boolean muted;
+
         public PlayerController()
         {
-
+            API.onPlayerConnected += OnPlayerConnected;
+            API.onPlayerDisconnected += OnPlayerDisconnected;
         }
 
         public PlayerController(NetHandle player)
         {
             this.player = player;
+            this.muted = true;
             EntityManager.Add(this);
+        }
+
+        public void OnPlayerConnected(Client player)
+        {
+            PlayerController temp = new PlayerController(player);
+        }
+
+        public void OnPlayerDisconnected(Client player, string reason)
+        {
+
         }
 
         public void LoadAccount(int id)

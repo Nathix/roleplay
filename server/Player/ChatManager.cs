@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GTANetworkServer;
 using GTANetworkShared;
+using SARoleplay;
 
 namespace SARoleplay.Player
 {
@@ -14,27 +15,48 @@ namespace SARoleplay.Player
         {
             API.onChatMessage += OnChatMessageHandler;
         }
-
-        public void OnChatMessageHandler(Client player, string message, CancelEventArgs e)
+        
+        public void OnChatMessageHandler(Client client, string message, CancelEventArgs e)
         {
-            SendLocalMessage(player, 15.0f, "~#FFFFFF~", player.name + " says: " + message);
+            PlayerController player = EntityManager.GetPlayerFromHandle(client.handle);
+
+            if(player.muted)
+            {
+                Utils.ChatHelper.SendErrorMessage(client, "You are muted.");
+            }
+            else
+            {
+                SendLocalMessage(client, 15.0f, "~#FFFFFF~", client.name + " says: " + message);
+            }
             e.Cancel = true;
         }
 
-        public static void SendLocalMessage(Client player, float radius, string color, string msg)
+        public static void SendLocalMessage(Client client, float radius, string color, string message)
         {
-            List<Client> localPlayers = API.shared.getPlayersInRadiusOfPlayer(radius, player);
-            foreach (Client c in localPlayers)
+            PlayerController player = EntityManager.GetPlayerFromHandle(client.handle);
+            if (player.muted)
             {
-                API.shared.sendChatMessageToPlayer(c, color, msg);
+                Utils.ChatHelper.SendErrorMessage(client, "You are muted.");
+            }
+            else
+            {
+                Utils.ChatHelper.SendLocalMessage(client, radius, color, message);
             }
         }
 
-        public static void SendGlobalMessage(string color, string msg)
+        public static void SendGlobalMessage(Client client, string color, string msg)
         {
-            foreach (Client c in API.shared.getAllPlayers())
+            PlayerController player = EntityManager.GetPlayerFromHandle(client.handle);
+            if (player.muted)
             {
-                API.shared.sendChatMessageToPlayer(c, color, msg);
+                Utils.ChatHelper.SendErrorMessage(client, "You are muted.");
+            }
+            else
+            {
+                foreach (Client c in API.shared.getAllPlayers())
+                {
+                    API.shared.sendChatMessageToPlayer(c, color, msg);
+                }
             }
         }
         
@@ -71,7 +93,7 @@ namespace SARoleplay.Player
         [Command("o", Alias = "ooc", GreedyArg = true)]
         public void CommandOOC(Client player, string msg)
         {
-            SendGlobalMessage("~#FFFFFF~", "(( " + player.name + ": " + msg + " ))");
+            SendGlobalMessage(player, "~#FFFFFF~", "(( " + player.name + ": " + msg + " ))");
         }
        
     }
