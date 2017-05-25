@@ -23,7 +23,9 @@ API.onServerEventTrigger.connect(function (name, args) {
 
 function LoginHandler(username, password) {
     spamProtection = true;
-    API.triggerServerEvent("player:login:process", username, password);
+    if (!spamProtection) {
+        API.triggerServerEvent("player:login:process", username, password);
+    }
 }
 
 function RegisterHandler() {

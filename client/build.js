@@ -189,7 +189,9 @@ API.onServerEventTrigger.connect(function (name, args) {
 });
 function LoginHandler(username, password) {
     spamProtection = true;
-    API.triggerServerEvent("player:login:process", username, password);
+    if (!spamProtection) {
+        API.triggerServerEvent("player:login:process", username, password);
+    }
 }
 function RegisterHandler() {
     loginCef.hide();
@@ -206,10 +208,8 @@ var ped3;
 API.onServerEventTrigger.connect(function (eventname, args) {
     if (eventname == "player:character:selection:show") {
         ped1 = API.createPed(1885233650, new Vector3(256.5341, 212.1253, 106.2869), 30.5);
-        ped2 = API.createPed(-407694286, new Vector3(253.4211, 213.1638, 106.2869), 1);
+        ped2 = API.createPed(-407694286, new Vector3(253.4211, 213.1638, 106.2869), -1);
         ped3 = API.createPed(-407694286, new Vector3(250.5341, 214.2292, 106.2869), -72.5);
-        API.setEntityTransparency(ped2, 30);
-        API.setEntityTransparency(ped3, 30);
         var cam = API.createCamera(new Vector3(254.7309, 216.7014, 112.00), new Vector3(0, 0, 0));
         API.pointCameraAtEntity(cam, ped2, new Vector3(0, 0, 0));
         API.setActiveCamera(cam);
@@ -247,7 +247,7 @@ API.onUpdate.connect(function () {
             if (localH != null)
                 API.setEntityTransparency(localH, 255);
             if (lastCharacter != null)
-                API.setEntityTransparency(lastCharacter, 200);
+                API.setEntityTransparency(lastCharacter, 160);
             lastCharacter = localH;
             lastCharacterValue = localV;
         }
