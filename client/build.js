@@ -188,9 +188,9 @@ API.onServerEventTrigger.connect(function (name, args) {
     }
 });
 function LoginHandler(username, password) {
-    spamProtection = true;
     if (!spamProtection) {
         API.triggerServerEvent("player:login:process", username, password);
+        spamProtection = true;
     }
 }
 function RegisterHandler() {

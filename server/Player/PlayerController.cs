@@ -12,9 +12,11 @@ namespace SARoleplay.Player
     {
         public Data.Account AccountData;
         public Data.Character CharacterData;
-        public NetHandle player;
+        public Client player;
 
         public Boolean muted;
+        public Boolean LoggedIn;
+        public Boolean SelectedCharacter;
 
         public PlayerController()
         {
@@ -22,26 +24,27 @@ namespace SARoleplay.Player
             API.onPlayerDisconnected += OnPlayerDisconnected;
         }
 
-        public PlayerController(NetHandle player)
+        public PlayerController(Client player)
         {
+            this.AccountData = new Data.Account();
+            this.CharacterData = new Data.Character();
+
             this.player = player;
             this.muted = true;
+            this.LoggedIn = false;
+            this.SelectedCharacter = false;
+
             EntityManager.Add(this);
         }
 
         public void OnPlayerConnected(Client player)
         {
-            PlayerController temp = new PlayerController(player);
+            new PlayerController(player);
         }
 
         public void OnPlayerDisconnected(Client player, string reason)
         {
-
-        }
-
-        public void LoadAccount(int id)
-        {
-
+            EntityManager.GetPlayerFromClient(player).UnloadAccount();
         }
 
         public void UnloadAccount()

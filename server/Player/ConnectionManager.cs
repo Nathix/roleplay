@@ -75,9 +75,31 @@ namespace SARoleplay.Player
                         API.triggerClientEvent(player, "player:camera:stop");
                         API.triggerClientEvent(player, "player:login:hide");
                         API.triggerClientEvent(player, "player:character:selection:show");
-                        //player.collisionless = false;
-                        //player.invincible = false;
-                        //player.freezePosition = false;
+
+                        PlayerController playerController = EntityManager.GetPlayerFromClient(player);
+                        if (playerController != null)
+                        {
+                            playerController.AccountData.Id = accountData.Value<int>("id");
+                            playerController.AccountData.ForumId = accountData.Value<int>("forum_id");
+                            playerController.AccountData.SocialClubName = accountData.Value<string>("social_club_name");
+                            playerController.AccountData.IP = player.address;
+                            playerController.AccountData.RegisteredDate = accountData.Value<string>("registered_date");
+                            playerController.AccountData.LastOnlineDate = accountData.Value<string>("last_online_date");
+                            playerController.AccountData.Online = true;
+                            playerController.AccountData.Admin = accountData.Value<Boolean>("admin");
+                            playerController.AccountData.Support = accountData.Value<Boolean>("support");
+                            playerController.AccountData.AdminName = accountData.Value<string>("admin_name");
+                            playerController.LoggedIn = true;
+                            //player.collisionless = false;
+                            //player.invincible = false;
+                            //player.freezePosition = false;
+                        }
+                        else
+                        {
+                            // This should be impossible but just incase.
+                            Console.WriteLine("Couldn't find a player controller for player " + player.name + " ~ " + player.socialClubName);
+                            player.kick("Unknown error occured.");
+                        }
                     }
                     else
                     {

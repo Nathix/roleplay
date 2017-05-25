@@ -28,5 +28,6 @@ namespace SARoleplay.Data
         public int Bank { get; set; }
 
         public int JobID { get; set; }
+        public int FactionID { get; set; }
     }
 }
