@@ -47,7 +47,7 @@ namespace SARoleplay
             return Players;
         }
 
-        public static PlayerController GetPlayerFromHandle(NetHandle player)
+        public static PlayerController GetPlayerFromClient(Client player)
         {
             return Players.Where(x => x.player == player).ToList<PlayerController>()[0];
         }

@@ -103,7 +103,7 @@ var HUD = (function () {
     return HUD;
 }());
 var MenuHelper = (function () {
-    function MenuHelper(title, subtitle, x, y, anchor) {
+    function MenuHelper(title, subtitle, x, y, anchor, callback) {
         this.title = title;
         this.subtitle = subtitle;
         this.x = (x == null) ? 0 : x;
@@ -118,6 +118,10 @@ var MenuHelper = (function () {
             if (self.element != null && self.open == true) {
                 API.drawMenu(self.element);
             }
+        });
+        this.element.OnItemSelect.connect(function (menu, item, index) {
+            if (callback != null)
+                callback(menu, item, index);
         });
     }
     MenuHelper.prototype.show = function () {
@@ -134,33 +138,24 @@ var MenuHelper = (function () {
     MenuHelper.prototype.setSelectedCallback = function (callback) {
         this.selectedCallBack = callback;
     };
-    MenuHelper.prototype.callSelectedCallback = function (menu, item) {
-        if (this.selectedCallBack != null)
-            return this.selectedCallBack(menu, item);
-        return false;
-    };
     MenuHelper.prototype.addMenuItem = function (label, description) {
         var temp = API.createMenuItem(label, description);
         this.element.AddItem(temp);
-        temp.Activated.connect(this.callSelectedCallback);
         return temp;
     };
     MenuHelper.prototype.addColoredItem = function (label, description, hexColor, hexHighlightColor) {
         var temp = API.createColoredItem(label, description, hexColor, hexHighlightColor);
         this.element.AddItem(temp);
-        temp.Activated.connect(this.callSelectedCallback);
         return temp;
     };
     MenuHelper.prototype.addCheckboxItem = function (label, description, isChecked) {
         var temp = API.createCheckboxItem(label, description, isChecked);
         this.element.AddItem(temp);
-        temp.Activated.connect(this.callSelectedCallback);
         return temp;
     };
     MenuHelper.prototype.addListItem = function (label, description, list, index, callback) {
         var temp = API.createListItem(label, description, list, index);
         this.element.AddItem(temp);
-        temp.Activated.connect(this.callSelectedCallback);
         if (callback != null)
             temp.OnListChanged.connect(function (listItem, newIndex) { callback(listItem, newIndex); });
         this.element.RefreshIndex();
@@ -168,6 +163,143 @@ var MenuHelper = (function () {
     };
     return MenuHelper;
 }());
+var CreationMenu = null;
+var FirstNameData = "";
+var LastNameData = "";
+var genderData = 0;
+var parent1Data = 0;
+var parent2Data = 1;
+var hairStyleData = 1;
+var hairColorData = 0;
+API.onServerEventTrigger.connect(function (eventname, args) {
+    if (eventname == "player:character:creation:show") {
+        CreationMenu = new MenuHelper("Character Creation", "Create your character", 0, 0, 6, SelectedCallback);
+        var camera = API.createCamera(API.getEntityPosition(API.getLocalPlayer()), API.getEntityRotation(API.getLocalPlayer()));
+        API.setCameraPosition(camera, new Vector3(245.4335, 217.0429, 106.2868));
+        API.pointCameraAtPosition(camera, new Vector3(246.4335, 214.0429, 106.2868));
+        API.setActiveCamera(camera);
+        API.setEntityPositionFrozen(API.getLocalPlayer(), true);
+        API.setEntityRotation(API.getLocalPlayer(), new Vector3(0, 0, 0));
+        var FirstNameItem = CreationMenu.addMenuItem("First Name", "Select your first name");
+        var LastNameItem = CreationMenu.addMenuItem("Last Name", "Select your last name");
+        var Gender = new List(String);
+        Gender.Add("Male");
+        Gender.Add("Female");
+        var GenderItem = CreationMenu.addListItem("Gender", "Male or Female", Gender, 0, onListItemChange);
+        var Parents = new List(String);
+        for (var i = 0; i <= 45; i++) {
+            Parents.Add(i.toString());
+        }
+        var Parent1Item = CreationMenu.addListItem("Parent 1", "First Parent", Parents, 0, onListItemChange);
+        var Parent2Item = CreationMenu.addListItem("Parent 2", "Second Parent", Parents, 1, onListItemChange);
+        var HairStyles = new List(String);
+        HairStyles.Add("1");
+        HairStyles.Add("2");
+        HairStyles.Add("3");
+        HairStyles.Add("4");
+        HairStyles.Add("5");
+        var HairStyleItem = CreationMenu.addListItem("Hair Style", "Hair Style", HairStyles, 0, onListItemChange);
+        var HairColors = new List(String);
+        for (var i = 0; i <= 63; i++) {
+            HairColors.Add(i.toString());
+        }
+        var HairColorItem = CreationMenu.addListItem("Hair Color", "Hair Color", HairColors, 0, onListItemChange);
+        var CompleteItem = CreationMenu.addMenuItem("Complete Character", "Finish creating your character");
+        CreationMenu.show();
+        function onListItemChange(listItem, index) {
+            if (listItem == GenderItem) {
+                API.sendChatMessage("Gender changed to " + ((index == 0) ? "Male" : "Female"));
+                if (index == 0) {
+                    API.setPlayerSkin(1885233650);
+                }
+                else {
+                    API.setPlayerSkin(-1667301416);
+                }
+                API.setEntityRotation(API.getLocalPlayer(), new Vector3(0, 0, 0));
+                genderData = index;
+            }
+            else if (listItem == Parent1Item) {
+                parent1Data = index;
+            }
+            else if (listItem == Parent2Item) {
+                parent2Data = index;
+            }
+            else if (listItem == HairStyleItem) {
+                var style = parseInt(index) + 1;
+                hairStyleData = style;
+                API.setPlayerClothes(API.getLocalPlayer(), 2, hairStyleData, 0);
+            }
+            else if (listItem == HairColorItem) {
+                hairColorData = index;
+                API.callNative("_SET_PED_HAIR_COLOR", API.getLocalPlayer(), hairColorData, hairColorData);
+            }
+            API.callNative("SET_PED_HEAD_BLEND_DATA", API.getLocalPlayer(), parent1Data, parent2Data, 0, parent1Data, parent2Data, 0, 50.00, 50.00, 0, false);
+            API.setPlayerClothes(API.getLocalPlayer(), 2, hairStyleData, 0);
+        }
+        function SelectedCallback(menu, item, index) {
+            if (item == FirstNameItem) {
+                var valid = false;
+                while (!valid) {
+                    valid = true;
+                    FirstNameData = API.getUserInput(FirstNameData, 16);
+                    if (FirstNameData.length < 2) {
+                        valid = false;
+                        API.sendChatMessage("~r~ERROR: ~w~Minimum of 2 characters required!");
+                    }
+                    else if (FirstNameData.search(/[^a-zA-Z]+/) !== -1) {
+                        valid = false;
+                        API.sendChatMessage("~r~ERROR: ~w~Only A-Z characters are accepted (No symbols or spaces).");
+                    }
+                    else if (FirstNameData == LastNameData) {
+                        valid = false;
+                        API.sendChatMessage("~r~ERROR: ~w~You must have different first and last name.");
+                    }
+                }
+                FirstNameItem.Text = "First Name: " + FirstNameData;
+            }
+            else if (item == LastNameItem) {
+                var valid = false;
+                while (!valid) {
+                    valid = true;
+                    LastNameData = API.getUserInput(LastNameData, 16);
+                    if (LastNameData.length < 2) {
+                        valid = false;
+                        API.sendChatMessage("~r~ERROR: ~w~Minimum of 2 characters required!");
+                    }
+                    else if (LastNameData.search(/[^a-zA-Z]+/) !== -1) {
+                        valid = false;
+                        API.sendChatMessage("~r~ERROR: ~w~Only A-Z characters are accepted (No symbols or spaces).");
+                    }
+                    else if (FirstNameData == LastNameData) {
+                        valid = false;
+                        API.sendChatMessage("~r~ERROR: ~w~You must have different first and last name.");
+                    }
+                }
+                LastNameItem.Text = "Last Name: " + LastNameData;
+            }
+            else if (item == CompleteItem) {
+                if (FirstNameData == "" || LastNameData == "") {
+                    API.sendChatMessage("~r~ERROR: ~w~You must have a first and last name.");
+                }
+                else {
+                    var data = {
+                        "firstname": FirstNameData,
+                        "lastname": LastNameData,
+                        "gender": genderData,
+                        "parent1": parent1Data,
+                        "parent2": parent2Data,
+                        "hairStyle": hairStyleData,
+                        "hairColor": hairColorData
+                    };
+                    API.triggerServerEvent("player:character:creation:finish", JSON.stringify(data));
+                }
+            }
+        }
+    }
+    else if (eventname == "player:character:creation:hide") {
+        CreationMenu.hide();
+    }
+});
 var loginCef = null;
 var registerCef = null;
 var spamProtection = false;
@@ -188,8 +320,10 @@ API.onServerEventTrigger.connect(function (name, args) {
     }
 });
 function LoginHandler(username, password) {
-    spamProtection = true;
-    API.triggerServerEvent("player:login:process", username, password);
+    if (!spamProtection) {
+        API.triggerServerEvent("player:login:process", username, password);
+        spamProtection = true;
+    }
 }
 function RegisterHandler() {
     loginCef.hide();
@@ -200,22 +334,61 @@ var selectionActive = false;
 var selectingCharacter = false;
 var lastCharacter = null;
 var lastCharacterValue = 0;
+var peds = [];
 var ped1;
 var ped2;
 var ped3;
+var positions = [
+    new Vector3(256.5341, 212.1253, 106.2869),
+    new Vector3(253.4211, 213.1638, 106.2869),
+    new Vector3(250.5341, 214.2292, 106.2869)
+];
+var rotations = [
+    30.5,
+    -1,
+    -72.5
+];
 API.onServerEventTrigger.connect(function (eventname, args) {
     if (eventname == "player:character:selection:show") {
-        ped1 = API.createPed(1885233650, new Vector3(256.5341, 212.1253, 106.2869), 30.5);
-        ped2 = API.createPed(-407694286, new Vector3(253.4211, 213.1638, 106.2869), 1);
-        ped3 = API.createPed(-407694286, new Vector3(250.5341, 214.2292, 106.2869), -72.5);
-        API.setEntityTransparency(ped2, 30);
-        API.setEntityTransparency(ped3, 30);
         var cam = API.createCamera(new Vector3(254.7309, 216.7014, 112.00), new Vector3(0, 0, 0));
-        API.pointCameraAtEntity(cam, ped2, new Vector3(0, 0, 0));
+        API.pointCameraAtPosition(cam, new Vector3(253.4211, 213.1638, 106.2869));
         API.setActiveCamera(cam);
         selectionActive = true;
         selectingCharacter = true;
         API.showCursor(true);
+    }
+    else if (eventname == "player:character:selection:data") {
+        var data = JSON.parse(args[0]);
+        for (var i = 0; i < data.length; i++) {
+            var model = ((data[i].gender === 0) ? 1885233650 : -1667301416);
+            var ped = API.createPed(model, positions[i], rotations[i]);
+            peds[ped.Value] = data[i];
+        }
+        if (data.length < 1)
+            ped1 = API.createPed(-407694286, positions[0], rotations[0]);
+        if (data.length < 2)
+            ped2 = API.createPed(-407694286, positions[1], rotations[1]);
+        if (data.length < 3)
+            ped3 = API.createPed(-407694286, positions[2], rotations[2]);
+    }
+    else if (eventname == "player:character:selection:hide") {
+        selectionActive = false;
+        selectingCharacter = false;
+        API.showCursor(false);
+        API.setGameplayCameraActive();
+        var allPeds = API.getAllPeds();
+        for (var i = 0; i < allPeds.Length; i++) {
+            if (peds[allPeds[i].Value] != null) {
+                API.deleteEntity(allPeds[i]);
+                peds[allPeds[i].Value] = null;
+            }
+        }
+        if (ped1 != null)
+            API.deleteEntity(ped1);
+        if (ped2 != null)
+            API.deleteEntity(ped2);
+        if (ped3 != null)
+            API.deleteEntity(ped3);
     }
 });
 API.onUpdate.connect(function () {
@@ -223,15 +396,23 @@ API.onUpdate.connect(function () {
         return false;
     var cursor = API.getCursorPosition();
     if (lastCharacter != null) {
-        if (lastCharacterValue == ped1.Value) {
-            API.displaySubtitle("~g~Name: ~w~Bob~n~~g~Faction: ~w~Test ~g~Money: ~w~0$~n~~g~Last Used: ~w~00/00/0000 00:00~n~~b~Press '~y~SPACE~b~' to spawn!");
+        if (peds[lastCharacterValue] != null) {
+            var str = "~g~Name: ~w~" + peds[lastCharacterValue].firstname + " " + peds[lastCharacterValue].lastname;
+            if (peds[lastCharacterValue].faction_id != 0)
+                str += "~n~~g~Faction: ~w~Yes";
+            str += "~n~~g~Money: ~w~" + (parseInt(peds[lastCharacterValue].money) + parseInt(peds[lastCharacterValue].bank)) + " $";
+            if (peds[lastCharacterValue].last_online_date != null)
+                str += "~n~~g~Last Online: ~w~" + peds[lastCharacterValue].last_online_date;
+            if (peds[lastCharacterValue].last_online_date == null)
+                str += "~n~~g~Last Online: ~w~Never";
+            API.displaySubtitle(str + "~n~~b~Press '~y~SPACE~b~' to spawn!");
         }
         else {
             API.displaySubtitle("~b~Press '~y~SPACE~b~' to create a character!");
         }
     }
     else {
-        API.displaySubtitle("~w~Hover over a character to continue.");
+        API.displaySubtitle("~w~Hover over a character.");
     }
     if (selectingCharacter) {
         var cursOp = API.getCursorPositionMantainRatio();
@@ -247,23 +428,24 @@ API.onUpdate.connect(function () {
             if (localH != null)
                 API.setEntityTransparency(localH, 255);
             if (lastCharacter != null)
-                API.setEntityTransparency(lastCharacter, 200);
+                API.setEntityTransparency(lastCharacter, 120);
             lastCharacter = localH;
             lastCharacterValue = localV;
         }
     }
 });
 API.onKeyDown.connect(function (sender, e) {
+    if (!selectionActive)
+        return false;
     if (e.KeyCode == Keys.Space) {
         if (lastCharacterValue != null) {
-            if (lastCharacterValue == ped1.Value) {
-                API.sendChatMessage("You selected character 1 - spawn");
+            if (peds[lastCharacterValue] != null) {
+                API.sendChatMessage("You selected to play as: " + peds[lastCharacterValue].firstname + " " + peds[lastCharacterValue].lastname);
+                API.triggerServerEvent("player:character:selection:selected", peds[lastCharacterValue].id);
             }
-            else if (lastCharacterValue == ped2.Value) {
-                API.sendChatMessage("You selected character 2 - create");
-            }
-            else if (lastCharacterValue == ped3.Value) {
-                API.sendChatMessage("You selected character 3 - create");
+            else {
+                API.sendChatMessage("You selected to create a character");
+                API.triggerServerEvent("player:character:selection:create");
             }
         }
     }

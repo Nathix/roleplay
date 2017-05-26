@@ -1,4 +1,4 @@
-﻿/// <reference path="types-gtanetwork/index.d.ts" />
+﻿/// <reference path="../types-gtanetwork/index.d.ts" />
 
 var loginCef = null;
 var registerCef = null;
@@ -22,8 +22,10 @@ API.onServerEventTrigger.connect(function (name, args) {
 }); 
 
 function LoginHandler(username, password) {
-    spamProtection = true;
-    API.triggerServerEvent("player:login:process", username, password);
+    if (!spamProtection) {
+        API.triggerServerEvent("player:login:process", username, password);
+        spamProtection = true;
+    }
 }
 
 function RegisterHandler() {

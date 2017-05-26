@@ -18,7 +18,7 @@ namespace SARoleplay.Player
         
         public void OnChatMessageHandler(Client client, string message, CancelEventArgs e)
         {
-            PlayerController player = EntityManager.GetPlayerFromHandle(client.handle);
+            PlayerController player = EntityManager.GetPlayerFromClient(client);
 
             if(player.muted)
             {
@@ -33,7 +33,7 @@ namespace SARoleplay.Player
 
         public static void SendLocalMessage(Client client, float radius, string color, string message)
         {
-            PlayerController player = EntityManager.GetPlayerFromHandle(client.handle);
+            PlayerController player = EntityManager.GetPlayerFromClient(client);
             if (player.muted)
             {
                 Utils.ChatHelper.SendErrorMessage(client, "You are muted.");
@@ -46,7 +46,7 @@ namespace SARoleplay.Player
 
         public static void SendGlobalMessage(Client client, string color, string msg)
         {
-            PlayerController player = EntityManager.GetPlayerFromHandle(client.handle);
+            PlayerController player = EntityManager.GetPlayerFromClient(client);
             if (player.muted)
             {
                 Utils.ChatHelper.SendErrorMessage(client, "You are muted.");

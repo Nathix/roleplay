@@ -12,10 +12,11 @@ namespace SARoleplay.Data
         public int ForumId { get; set; }
         public string SocialClubName { get; set; }
         public string IP { get; set; }
-        public DateTime RegisteredDate { get; set; }
-        public DateTime LastOnlineDate { get; set; }
+        public string RegisteredDate { get; set; }
+        public string LastOnlineDate { get; set; }
         public Boolean Online { get; set; }
-        public int Admin { get; set; }
+        public Boolean Admin { get; set; }
+        public Boolean Support { get; set; }
         public string AdminName { get; set; }
     }
 }

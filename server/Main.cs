@@ -25,17 +25,11 @@ namespace SARoleplay
         public void OnResourceStart()
         {
             API.setGamemodeName("SARP Alpha");
-            EntityManager.Init();
             API.sendChatMessageToAll("~r~Roleplay has started!");
 
-            string test = Utils.WebHelper.GetData("test");
-            Console.WriteLine("GET TEST: " + test);
+            Utils.WebHelper.GetData("reset");
 
-            Dictionary<string, string> data = new Dictionary<string, string>();
-            data.Add("email", "test@test.com");
-            data.Add("password", "test");
-            test = Utils.WebHelper.PostData("test2", data);
-            Console.WriteLine("POST TEST: " + test);
+            EntityManager.Init();
         }
 
         public void OnResourceStop()

@@ -34,5 +34,17 @@ namespace SARoleplay.Utils
             byte[] result = wc.UploadValues(URL + path, "POST", reqparm);
             return Encoding.UTF8.GetString(result);
         }
+
+        public static string PostData(string path, string data)
+        {
+            var reqparm = new System.Collections.Specialized.NameValueCollection();
+            reqparm.Add("data", data);
+
+            WebClient wc = new WebClient();
+            wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+            wc.Headers[HttpRequestHeader.Authorization] = AuthKey;
+            byte[] result = wc.UploadValues(URL + path, "POST", reqparm);
+            return Encoding.UTF8.GetString(result);
+        }
     }
 }
