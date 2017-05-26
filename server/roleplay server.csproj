@@ -60,6 +60,7 @@
     <Compile Include="Data\FactionMember.cs" />
     <Compile Include="Data\FactionRank.cs" />
     <Compile Include="Data\FactionVehicle.cs" />
+    <Compile Include="Data\FactionWeapon.cs" />
     <Compile Include="Data\House.cs" />
     <Compile Include="Data\Vehicle.cs" />
     <Compile Include="EntityManager.cs" />

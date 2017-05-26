@@ -46,7 +46,11 @@ namespace SARoleplay.Player
 
         public void OnPlayerDisconnected(Client player, string reason)
         {
-            EntityManager.GetPlayerFromClient(player).UnloadAccount();
+            PlayerController pc = EntityManager.GetPlayerFromClient(player);
+            if(pc != null)
+            {
+                pc.UnloadAccount();
+            }
         }
 
         public void OnResourceStop()
@@ -130,9 +134,18 @@ namespace SARoleplay.Player
                 player.nametagVisible = true;
                 player.transparency = 255;
                 player.dimension = 1;
+
                 this.muted = false;
                 this.SelectedCharacter = true;
+
                 player.name = this.CharacterData.FirstName + "_" + this.CharacterData.LastName;
+
+                //JObject charStyleData = JObject.Parse(this.CharacterData.CharacterStyle);
+                //player.setSyncedData("player:character:data", this.CharacterData.CharacterStyle);
+
+                //player.setClothes(2, charStyleData.Value<int>("hairStyle"), 0);
+                //API.sendNativeToPlayer(player, Hash._SET_PED_HAIR_COLOR, player, charStyleData.Value<int>("hairColor"), 0);
+                //API.sendNativeToPlayer(player, Hash.SET_PED_HEAD_BLEND_DATA, player, charStyleData.Value<int>("parent1"), charStyleData.Value<int>("parent2"), 0, charStyleData.Value<int>("parent1"), charStyleData.Value<int>("parent2"), 0, 50.00, 50.00, 0, false);
             }
         }
     }

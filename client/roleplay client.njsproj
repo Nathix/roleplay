@@ -122,6 +122,9 @@
     <TypeScriptCompile Include="Account\Account.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Account\CharacerFaceSync.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Account\CharacterSelection.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

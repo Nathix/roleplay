@@ -36,6 +36,11 @@ API.onServerEventTrigger.connect(function (eventname, args) {
             var model = ((data[i].gender === 0) ? 1885233650 : -1667301416);
             var ped = API.createPed(model, positions[i], rotations[i]);
             peds[ped.Value] = data[i];
+
+            var json = JSON.parse(data[i].character_style);
+            //API.setPlayerClothes(ped, 2, json.hairStyle, 0);
+            API.callNative("_SET_PED_HAIR_COLOR", ped, json.hairColor, 0);
+            API.callNative("SET_PED_HEAD_BLEND_DATA", ped, json.parent1, json.parent2, 0, json.parent1, json.parent2, 0, 50.00, 50.00, 0, false);
         }
 
         if (data.length < 1) ped1 = API.createPed(-407694286, positions[0], rotations[0]);
