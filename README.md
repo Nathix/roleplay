@@ -1,5 +1,5 @@
-# Roleplay - (Zurio?)
-Roleplay gamemode.
+# San Andreas Roleplay
+Created for San Andreas Roleplay GTA:Network server, check out the [Development Tracker](https://trello.com/b/GH66frYL/development).
 
 # TODO
 - [ ] Money system (pocket / bank / savings?)
