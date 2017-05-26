@@ -61,29 +61,33 @@ namespace SARoleplay.Player
 
         public void UnloadAccount()
         {
-            Console.WriteLine("Saving player account data for: " + this.player.name);
+            if (this.SelectedCharacter == true)
+            {
+                Console.WriteLine("Saving player account data for: " + this.player.name);
 
-            JObject data = new JObject();
+                JObject data = new JObject();
 
-            data.Add("id", this.CharacterData.Id);
-            data.Add("account_id", this.CharacterData.AccountId);
-            data.Add("firstname", this.CharacterData.FirstName);
-            data.Add("lastname", this.CharacterData.LastName);
-            data.Add("playtime_hours", this.CharacterData.PlaytimeHours);
-            data.Add("playtime_minutes", this.CharacterData.PlaytimeMinutes);
-            data.Add("money", this.CharacterData.Money);
-            data.Add("bank", this.CharacterData.Bank);
-            data.Add("job_id", this.CharacterData.JobID);
-            data.Add("faction_id", this.CharacterData.FactionID);
+                data.Add("id", this.CharacterData.Id);
+                data.Add("account_id", this.CharacterData.AccountId);
+                data.Add("firstname", this.CharacterData.FirstName);
+                data.Add("lastname", this.CharacterData.LastName);
+                data.Add("character_style", this.CharacterData.CharacterStyle);
+                data.Add("playtime_hours", this.CharacterData.PlaytimeHours);
+                data.Add("playtime_minutes", this.CharacterData.PlaytimeMinutes);
+                data.Add("money", this.CharacterData.Money);
+                data.Add("bank", this.CharacterData.Bank);
+                data.Add("job_id", this.CharacterData.JobID);
+                data.Add("faction_id", this.CharacterData.FactionID);
 
-            Vector3 pos = this.player.position;
-            Vector3 rot = this.player.rotation;
-            data.Add("position_x", pos.X);
-            data.Add("position_y", pos.Y);
-            data.Add("position_z", pos.Z);
-            data.Add("rotation", pos.Z);
-            
-            Utils.WebHelper.PostData("account/characters/save/" + this.CharacterData.Id, data.ToString());
+                Vector3 pos = this.player.position;
+                Vector3 rot = this.player.rotation;
+                data.Add("position_x", pos.X);
+                data.Add("position_y", pos.Y);
+                data.Add("position_z", pos.Z);
+                data.Add("rotation", pos.Z);
+
+                Utils.WebHelper.PostData("account/characters/save/" + this.CharacterData.Id, data.ToString());
+            }
 
             EntityManager.Remove(this);
         }
@@ -100,6 +104,8 @@ namespace SARoleplay.Player
                 this.CharacterData.AccountId = data.Value<int>("account_id");
                 this.CharacterData.FirstName = data.Value<string>("firstname");
                 this.CharacterData.LastName = data.Value<string>("lastname");
+                this.CharacterData.Gender = data.Value<int>("gender");
+                this.CharacterData.CharacterStyle = data.Value<string>("character_style");
                 this.CharacterData.RegisteredDate = data.Value<string>("registered_date");
                 this.CharacterData.LastOnlineDate = data.Value<string>("last_online_date");
                 this.CharacterData.PlaytimeHours = data.Value<int>("playtime_hours");
@@ -115,6 +121,8 @@ namespace SARoleplay.Player
                 this.CharacterData.Online = true;
 
                 API.triggerClientEvent(player, "player:character:selection:hide");
+
+                API.setPlayerSkin(player, ((this.CharacterData.Gender == 0) ? PedHash.FreemodeMale01 : PedHash.FreemodeFemale01));
                 player.movePosition(new Vector3(this.CharacterData.PositionX, this.CharacterData.PositionY, this.CharacterData.PositionZ), 1);
                 player.moveRotation(new Vector3(0, 0, this.CharacterData.Rotation), 1);
 
@@ -123,6 +131,7 @@ namespace SARoleplay.Player
                 player.freezePosition = false;
                 player.nametagVisible = true;
                 this.SelectedCharacter = true;
+                player.name = this.CharacterData.FirstName + "_" + this.CharacterData.LastName;
             }
         }
     }

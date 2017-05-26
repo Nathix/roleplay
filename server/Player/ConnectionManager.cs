@@ -59,6 +59,7 @@ namespace SARoleplay.Player
                 data.Add("username", arguments[0].ToString());
                 data.Add("password", arguments[1].ToString());
                 data.Add("scname", player.socialClubName);
+                data.Add("ip", player.address);
                 string result = Utils.WebHelper.PostData("account/login", data);
                 JObject test = JObject.Parse(result);
 
@@ -129,6 +130,45 @@ namespace SARoleplay.Player
                     // This should be impossible but just incase.
                     Console.WriteLine("Couldn't find a player controller for player " + player.name + " ~ " + player.socialClubName);
                     player.kick("Unknown error occured.");
+                }
+            }
+            else if(eventName == "player:character:selection:create")
+            {
+                API.triggerClientEvent(player, "player:character:selection:hide");
+                API.triggerClientEvent(player, "player:character:creation:show");
+            }
+            else if(eventName == "player:character:creation:finish")
+            {
+                JObject data = JObject.Parse(arguments[0].ToString());
+
+                Dictionary<string, string> nameCheckData = new Dictionary<string, string>();
+                nameCheckData.Add("firstname", data.Value<string>("firstname"));
+                nameCheckData.Add("lastname", data.Value<string>("lastname"));
+                string result = Utils.WebHelper.PostData("account/characters/check", nameCheckData);
+                JObject NameCheck = JObject.Parse(result);
+
+                if(NameCheck.Value<string>("status") == "error")
+                {
+                    Utils.ChatHelper.SendErrorMessage(player, NameCheck.Value<string>("message"));
+                }
+                else
+                {
+                    Utils.ChatHelper.SendSuccessMessage(player, "Character available, creating..");
+                    PlayerController playerController = EntityManager.GetPlayerFromClient(player);
+                    string accountID = playerController.AccountData.Id.ToString();
+
+                    string creationResult = Utils.WebHelper.PostData("account/characters/create/" + accountID, data.ToString());
+                    JObject creationData = JObject.Parse(creationResult);
+
+                    if(creationData.Value<string>("status") == "success")
+                    {
+                        playerController.LoadCharacter(creationData.Value<int>("data"));
+                        API.triggerClientEvent(player, "player:character:creation:hide");
+                    }
+                    else
+                    {
+                        Utils.ChatHelper.SendErrorMessage(player, NameCheck.Value<string>("message"));
+                    }
                 }
             }
         }

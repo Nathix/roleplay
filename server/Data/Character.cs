@@ -19,6 +19,9 @@ namespace SARoleplay.Data
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        public int Gender { get; set; }
+        public string CharacterStyle { get; set; }
+
         public float PositionX { get; set; }
         public float PositionY { get; set; }
         public float PositionZ { get; set; }

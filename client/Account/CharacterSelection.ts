@@ -31,10 +31,10 @@ API.onServerEventTrigger.connect(function (eventname, args) {
     }
     else if (eventname == "player:character:selection:data") {
         var data = JSON.parse(args[0]);
-        API.sendChatMessage("Data received | " + data.length);
 
         for (var i = 0; i < data.length; i++) {
-            var ped = API.createPed(1885233650, positions[i], rotations[i]);
+            var model = ((data[i].gender === 0) ? 1885233650 : -1667301416);
+            var ped = API.createPed(model, positions[i], rotations[i]);
             peds[ped.Value] = data[i];
         }
 
@@ -111,6 +111,7 @@ API.onKeyDown.connect(function (sender, e) {
                 API.triggerServerEvent("player:character:selection:selected", peds[lastCharacterValue].id);
             } else {
                 API.sendChatMessage("You selected to create a character");
+                API.triggerServerEvent("player:character:selection:create");
             }
         }
     }
