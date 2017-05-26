@@ -129,6 +129,7 @@ namespace SARoleplay.Player
                 player.freezePosition = false;
                 player.nametagVisible = true;
                 player.transparency = 255;
+                player.dimension = 1;
                 this.muted = false;
                 this.SelectedCharacter = true;
                 player.name = this.CharacterData.FirstName + "_" + this.CharacterData.LastName;

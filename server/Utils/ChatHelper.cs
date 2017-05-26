@@ -62,7 +62,7 @@ namespace SARoleplay.Utils
 
         public static void SendLocalMessage(Client player, float radius, string color, string msg)
         {
-            List<Client> localPlayers = API.shared.getPlayersInRadiusOfPlayer(radius, player);
+            List<Client> localPlayers = Utils.PlayerHelper.GetPlayersInRadiusOfPlayer(radius, player); // Checks dimension too
             foreach (Client c in localPlayers)
             {
                 API.shared.sendChatMessageToPlayer(c, color, msg);

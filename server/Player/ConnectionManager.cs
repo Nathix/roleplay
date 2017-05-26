@@ -41,6 +41,7 @@ namespace SARoleplay.Player
             player.invincible = true;
             player.freezePosition = true;
             player.setSkin(PedHash.FreemodeMale01);
+            player.dimension = 2;
 
             API.triggerClientEvent(player, "player:camera:interpolate", _camTime, _startCamPos, _endCamPos, _startCamRot, _endCamRot);
             API.triggerClientEvent(player, "player:login:show");
