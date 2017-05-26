@@ -63,8 +63,6 @@ namespace SARoleplay.Player
         {
             if (this.SelectedCharacter == true)
             {
-                Console.WriteLine("Saving player account data for: " + this.player.name);
-
                 JObject data = new JObject();
 
                 data.Add("id", this.CharacterData.Id);
@@ -130,6 +128,8 @@ namespace SARoleplay.Player
                 player.invincible = false;
                 player.freezePosition = false;
                 player.nametagVisible = true;
+                player.transparency = 255;
+                this.muted = false;
                 this.SelectedCharacter = true;
                 player.name = this.CharacterData.FirstName + "_" + this.CharacterData.LastName;
             }

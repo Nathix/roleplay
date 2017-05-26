@@ -75,7 +75,11 @@
     <Content Include="phone\wallpapers\background.jpg" />
     <Content Include="resources\css\bootstrap.css" />
     <Content Include="resources\css\bootstrap.min.css" />
-    <Content Include="resources\css\login.css" />
+    <Content Include="resources\css\font-awesome.css" />
+    <Content Include="resources\css\font-awesome.min.css" />
+    <Content Include="resources\css\form-elements.css" />
+    <Content Include="resources\css\style.css" />
+    <Content Include="resources\fonts\fontawesome-webfont.ttf" />
     <Content Include="resources\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="resources\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="resources\fonts\glyphicons-halflings-regular.ttf" />

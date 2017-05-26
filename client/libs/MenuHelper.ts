@@ -49,10 +49,6 @@ class MenuHelper {
         return this.element.Visible;
     }
 
-    setSelectedCallback(callback: Function) {
-        this.selectedCallBack = callback;
-    }
-
     addMenuItem(label: string, description: string) {
         var temp = API.createMenuItem(label, description);
         this.element.AddItem(temp);

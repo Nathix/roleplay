@@ -4,32 +4,94 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/login.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/form-elements.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
-<body>
-    <div class="card card-container">
-        <form class="form-signin">
-            <span id="reauth-email" class="reauth-email"></span>
-            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" id="login">Login</button>
-            <button class="btn btn-lg btn-secondary btn-block btn-signin" type="submit" id="register">Register</button>
-        </form>
+<body>    <!-- Top content -->
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+                        <h1><strong>San Andreas</strong> Roleplay</h1>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>Welcome!</h3>
+                                <p>Enter your username and password to log on:</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form role="form" action="" method="post" class="login-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-username">Username</label>
+                                    <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-password">Password</label>
+                                    <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                </div>
+                                <button type="submit" class="btn">Login</button>
+
+                                <button class="btn reg" id="register">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
     <script src="../../js/jquery-3.2.1.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-         document.getElementById("login").onclick = function (e) {
-            e.preventDefault();
 
-            var username = document.getElementById("inputUsername").value;
-            var password = document.getElementById("inputPassword").value;
-            resourceCall("LoginHandler", username, password);
-        };
-        document.getElementById("register").onclick = function (e) {
-            e.preventDefault();
-            resourceCall("RegisterHandler");
-        };
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            /*
+                Form validation
+            */
+            $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function () {
+                $(this).removeClass('input-error');
+            });
+
+            $('.login-form').on('submit', function (e) {
+                e.preventDefault();
+                var errors = false;
+                $(this).find('input[type="text"], input[type="password"], textarea').each(function () {
+                    if ($(this).val() == "") {
+                        $(this).addClass('input-error');
+                        errors = true;
+                    }
+                    else {
+                        $(this).removeClass('input-error');
+                    }
+                });
+
+                if (errors == false) {
+                    var username = $("#form-username").val();
+                    var password = $("#form-password").val();
+                    resourceCall("LoginHandler", username, password);
+                }
+
+            });
+
+            $("#register").click(function (e) {
+                resourceCall("RegisterHandler");
+            });
+
+
+        });
+
     </script>
 </body>
 </html>

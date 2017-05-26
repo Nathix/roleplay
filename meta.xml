@@ -11,8 +11,11 @@
 
   <!-- CSS & CSS Requirements -->
   <file src="client/resources/css/bootstrap.min.css" />
-  <file src="client/resources/css/login.css" />
+  <file src="client/resources/css/font-awesome.min.css" />
+  <file src="client/resources/css/form-elements.css" />
+  <file src="client/resources/css/style.css" />
   <file src="client/resources/fonts/glyphicons-halflings-regular.ttf" />
+  <file src="client/resources/fonts/fontawesome-webfont.ttf" />
   <file src="client/resources/js/jquery-3.2.1.min.js" />
   <file src="client/resources/js/bootstrap.min.js" />
 
