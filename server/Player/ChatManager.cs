@@ -63,6 +63,7 @@ namespace SARoleplay.Player
         [Command("me", GreedyArg = true)]
         public void CommandMe(Client player, string msg)
         {
+            Utils.Logger.Log(LogLevel.Info, player + " used the me command");
             SendLocalMessage(player, 15.0f, "~#C2A2DA~", player.name + " " + msg);
         }
 
