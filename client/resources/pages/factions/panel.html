@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="../../css/bootstrap.min.css" rel="stylesheet" /> <!-- Used -->
+		<link href="../../css/animate.min.css" rel="stylesheet"/>
+		<link href="../../css/paper-dashboard.css" rel="stylesheet"/> <!-- Used -->
+		<link href="../../css/font-awesome.min.css" rel="stylesheet"> <!-- Used -->
+		<link href="../../css/themify-icons.css" rel="stylesheet"> <!-- Used -->
+		<link href="../../css/style.css" rel="stylesheet">
+
+		<!-- Put this font back at some point <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'> -->
+<script>
+// Sections
+var s = {
+	settings: {
+		"url":"/resources/pages/factions"
+	},
+	sections: [],
+	oldTarget: 0,
+	addSection: function(fileName, text, icon) {
+		var key = this.sections.push(
+			{
+				fileName: fileName,
+				text: text,
+				icon: icon,
+				loaded: false
+			}
+		);
+		key = key-1; // length - 1 = key
+		this.createTab(fileName, text, icon, key);
+	},
+	createTab: function(fileName, text, icon, decidedId) {
+		$("#main-tabs").append(
+			$("<input></input>", {"id":"tab"+decidedId, "data-index": decidedId, "type":"radio", "name":"tabs", "data-target":fileName})
+		).append(
+			$("<label></label>", {"for":"tab"+decidedId}
+			).append(
+				$("<i></i>", {"class":icon})
+			).append(
+				$("<span></span>", {html:text})
+			)
+		);
+		if(decidedId == 0) {
+			$("#tab"+decidedId).attr("checked", "true");
+		}
+	},
+	displayContents: function(chkBxElement) {
+		var self = this;
+		var target = chkBxElement.attr('data-target');
+		if(target == self.oldTarget) return;
+		if(typeof self.oldTarget !== "number") self.oldTarget.hide();
+		if($("#" + target).length !== 0) {
+			$("#"+target).show();
+			self.oldTarget = $("#"+target);
+		} else {
+			$.ajax({
+				url: s.settings.url+"/cards/" + target + ".html",
+				method: "POST",
+				dataType: "html"
+			}).done(function(response) {
+				$("#section").append(
+					$("<section></section>", {"id":target, "html":response})
+				);
+				$("#"+target).show();
+				self.oldTarget = $("#"+target);
+			});
+		}
+	}
+};
+</script>
+	</head>
+	<body>
+		<!-- Space for HTML to display -->
+		<div class="tab_container">
+				<div id="main-tabs" class="pull-left" style="width:15%;">
+				</div>
+				<div class="pull-left main-panel" style="background-color: #f0f0f0 !important; width:85%; height:460px; border-top: 3px solid #66615b; overflow-y: scroll;">
+					<div id="section"></div>
+				</div>
+		</div>
+
+		<!-- Full list, still working out what is needed and what is not needed -->
+		<script src="../../js/jquery-1.10.2.js" type="text/javascript"></script> <!-- Used -->
+		<script src="../../js/jquery-ui.min.js" type="text/javascript"></script> <!-- Used -->
+		<script src="../../js/perfect-scrollbar.min.js" type="text/javascript"></script>
+		<script src="../../js/bootstrap.min.js" type="text/javascript"></script> <!-- Used -->
+		<script src="../../js/jquery.validate.min.js"></script> 
+		<script src="../../js/es6-promise-auto.min.js"></script>
+		<script src="../../js/moment.min.js"></script>
+		<script src="../../js/bootstrap-datetimepicker.js"></script>
+		<script src="../../js/bootstrap-selectpicker.js"></script>
+		<script src="../../js/bootstrap-switch-tags.js"></script>
+		<script src="../../js/jquery.easypiechart.min.js"></script>
+		<script src="../../js/chartist.min.js"></script>
+		<script src="../../js/bootstrap-notify.js"></script> <!-- Used -->
+		<script src="../../js/sweetalert2.js"></script>
+		<script src="../../js/jquery-jvectormap.js"></script>
+		<script src="../../js/bootstrap-table.js"></script>
+		<script src="../../js/jquery.datatables.js"></script>
+		<script src="../../js/fullcalendar.min.js"></script>
+		<script src="../../js/paper-dashboard.js"></script> <!-- Used -->
+		<script src="../../js/jquery.sharrre.js"></script>
+		<script>
+			$(document).ready(function() {
+				var oldTarget = 0;
+				s.addSection("dashboard", "Dashboard", "fa fa-building");
+				s.addSection("members", "Members", "fa fa-address-card"); // fileName (./cards/), friendlyName, iconClass
+
+				// Leave this alone
+				s.displayContents($("input[name='tabs']:checked"));
+				$("input[name='tabs']").change(function() {
+					s.displayContents($(this));
+				});
+			});
+		</script>
+	</body>
+</html>
