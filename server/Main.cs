@@ -25,7 +25,9 @@ namespace SARoleplay
         public void OnResourceStart()
         {
             API.setGamemodeName("SARP Alpha");
-            API.sendChatMessageToAll("~r~Roleplay has started!");
+            API.sendChatMessageToAll("~g~Roleplay has started!");
+
+            Utils.LogHelper.WriteLog("info", "Roleplay gamemode started!");
 
             Utils.WebHelper.GetData("reset");
 
@@ -35,6 +37,7 @@ namespace SARoleplay
         public void OnResourceStop()
         {
             API.sendChatMessageToAll("~r~Roleplay stopped!");
+            Utils.LogHelper.WriteLog("info", "Roleplay gamemode stopped! I blame Unix.");
         }
 
         public void SpawnPlayer(Client player)
