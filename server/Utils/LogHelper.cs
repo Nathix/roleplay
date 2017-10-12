@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
-using GTANetworkServer;
-using GTANetworkShared;
+using GrandTheftMultiplayer.Server;
+using GrandTheftMultiplayer.Shared;
 using Newtonsoft.Json.Linq;
 
 namespace SARoleplay.Utils

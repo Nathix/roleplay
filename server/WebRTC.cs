@@ -5,7 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-using GTANetworkServer;
+using GrandTheftMultiplayer.Server;
+using GrandTheftMultiplayer.Shared;
+using GrandTheftMultiplayer.Server.API;
+using GrandTheftMultiplayer.Server.Elements;
 using Fleck;
 using Newtonsoft.Json.Linq;
 
