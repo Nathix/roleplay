@@ -1,4 +1,4 @@
-﻿/// <reference path="types-gtanetwork/index.d.ts" />
+﻿/// <reference path="types-gt-mp/Declarations.d.ts" />
 
 API.onServerEventTrigger.connect(function (name, args) {
     if (name == "player:camera:interpolate") {

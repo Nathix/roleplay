@@ -1,4 +1,5 @@
-﻿var selectionActive = false;
+﻿/// <reference path="../types-gt-mp/Declarations.d.ts" />
+var selectionActive = false;
 var selectingCharacter = false;
 var lastCharacter = null;
 var lastCharacterValue = 0;

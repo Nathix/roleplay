@@ -1,4 +1,4 @@
-﻿/// <reference path="../types-gtanetwork/index.d.ts" />
+﻿/// <reference path="../types-gt-mp/Declarations.d.ts" />
 
 var loginCef = null;
 var registerCef = null;
