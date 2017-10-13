@@ -15,7 +15,7 @@ namespace SARoleplay.Utils
         public static string GetData(string path)
         {
             WebClient wc = new WebClient();
-            wc.Headers[HttpRequestHeader.Authorization] = AuthKey;
+            wc.Headers["secret"] = AuthKey;
             string result = wc.DownloadString(URL + path);
             return result;
         }
@@ -30,7 +30,7 @@ namespace SARoleplay.Utils
             
             WebClient wc = new WebClient();
             wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-            wc.Headers[HttpRequestHeader.Authorization] = AuthKey;
+            wc.Headers["secret"] = AuthKey;
             byte[] result = wc.UploadValues(URL + path, "POST", reqparm);
             return Encoding.UTF8.GetString(result);
         }
@@ -42,7 +42,7 @@ namespace SARoleplay.Utils
 
             WebClient wc = new WebClient();
             wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-            wc.Headers[HttpRequestHeader.Authorization] = AuthKey;
+            wc.Headers["secret"] = AuthKey;
             byte[] result = wc.UploadValues(URL + path, "POST", reqparm);
             return Encoding.UTF8.GetString(result);
         }
