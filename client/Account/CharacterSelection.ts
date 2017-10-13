@@ -83,8 +83,8 @@ API.onUpdate.connect(function () {
     }
 
     if (selectingCharacter) {
-		var cursOp = API.getCursorPositionMantainRatio();
-        var s2w = API.screenToWorldMantainRatio(cursOp);
+		var cursOp = API.getCursorPositionMaintainRatio();
+        var s2w = API.screenToWorldMaintainRatio(cursOp);
         var rayCast = API.createRaycast(new Vector3(254.7309, 216.7014, 112.00), s2w, 4 | 8 | 12, null);
 		var localH = null;
 		var localV = 0;

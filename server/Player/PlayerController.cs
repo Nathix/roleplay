@@ -27,6 +27,7 @@ namespace SARoleplay.Player
         {
             API.onPlayerConnected += OnPlayerConnected;
             API.onPlayerDisconnected += OnPlayerDisconnected;
+            API.onResourceStart += OnResourceStart;
             API.onResourceStop += OnResourceStop;
         }
 
@@ -41,6 +42,16 @@ namespace SARoleplay.Player
             this.SelectedCharacter = false;
 
             EntityManager.Add(this);
+        }
+
+        public void OnResourceStart()
+        {
+            //new PlayerController(player);
+            List<Client> clients = API.getAllPlayers();
+            for (int i = 0; i < clients.Count; i++)
+            {
+                new PlayerController(clients[i]);
+            }
         }
 
         public void OnPlayerConnected(Client player)
@@ -135,6 +146,7 @@ namespace SARoleplay.Player
                 player.freezePosition = false;
                 player.nametagVisible = true;
                 this.SelectedCharacter = true;
+                this.muted = false;
                 player.name = this.CharacterData.FirstName + "_" + this.CharacterData.LastName;
             }
         }
