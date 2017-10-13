@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -31,8 +32,17 @@ namespace SARoleplay.Utils
             WebClient wc = new WebClient();
             wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
             wc.Headers["secret"] = AuthKey;
-            byte[] result = wc.UploadValues(URL + path, "POST", reqparm);
-            return Encoding.UTF8.GetString(result);
+
+            try
+            {
+                byte[] result = wc.UploadValues(URL + path, "POST", reqparm);
+                return Encoding.UTF8.GetString(result);
+            }
+            catch (WebException e)
+            {
+                HandleException(e, path);
+            }
+            return "";
         }
 
         public static string PostData(string path, string data)
@@ -43,8 +53,22 @@ namespace SARoleplay.Utils
             WebClient wc = new WebClient();
             wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
             wc.Headers["secret"] = AuthKey;
-            byte[] result = wc.UploadValues(URL + path, "POST", reqparm);
-            return Encoding.UTF8.GetString(result);
+            try
+            {
+                byte[] result = wc.UploadValues(URL + path, "POST", reqparm);
+                return Encoding.UTF8.GetString(result);
+            }
+            catch (WebException e)
+            {
+                HandleException(e, path);
+            }
+            return "";
+        }
+
+        private static void HandleException(WebException exception, string path)
+        {
+            Console.WriteLine("WebHelper Error: " + exception.Status + " - " + exception.Message);
+            Console.WriteLine("WebHelper Error: Path - " + path);
         }
     }
 }
