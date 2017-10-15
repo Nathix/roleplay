@@ -1,5 +1,6 @@
-/// <reference path="index.d.ts" />
 
+/*
+/// <reference path="index.d.ts" />
 declare const API: GrandTheftMultiplayer.Client.Javascript.ScriptContext;
 declare const host: Microsoft.ClearScript.HostFunctions;
 import Keys = System.Windows.Forms.Keys;
@@ -35,3 +36,4 @@ declare interface DictionaryConstructor<TKey, TValue> extends System.Collections
 }
 
 declare var Dictionary: DictionaryConstructor<any, any>;
+*/
