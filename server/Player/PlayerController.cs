@@ -74,35 +74,45 @@ namespace SARoleplay.Player
             }
         }
 
+        public void SaveAccount()
+        {
+            Console.WriteLine("Saving player account data for: " + this.player.name);
+
+            JObject data = new JObject();
+
+            data.Add("id", this.CharacterData.Id);
+            data.Add("account_id", this.CharacterData.AccountId);
+            data.Add("firstname", this.CharacterData.FirstName);
+            data.Add("lastname", this.CharacterData.LastName);
+            data.Add("character_style", this.CharacterData.CharacterStyle);
+            data.Add("playtime_hours", this.CharacterData.PlaytimeHours);
+            data.Add("playtime_minutes", this.CharacterData.PlaytimeMinutes);
+            data.Add("money", this.CharacterData.Money);
+            data.Add("bank", this.CharacterData.Bank);
+            data.Add("job_id", this.CharacterData.JobID);
+            data.Add("faction_id", this.CharacterData.FactionID);
+
+            Vector3 pos = this.player.position;
+            Vector3 rot = this.player.rotation;
+            data.Add("position_x", pos.X);
+            data.Add("position_y", pos.Y);
+            data.Add("position_z", pos.Z);
+            data.Add("rotation", pos.Z);
+
+            Utils.WebHelper.PostData("account/characters/save/" + this.CharacterData.Id, data.ToString());
+        }
+
         public void UnloadAccount()
         {
             if (this.SelectedCharacter == true)
             {
-                Console.WriteLine("Saving player account data for: " + this.player.name);
-
-                JObject data = new JObject();
-
-                data.Add("id", this.CharacterData.Id);
-                data.Add("account_id", this.CharacterData.AccountId);
-                data.Add("firstname", this.CharacterData.FirstName);
-                data.Add("lastname", this.CharacterData.LastName);
-                data.Add("character_style", this.CharacterData.CharacterStyle);
-                data.Add("playtime_hours", this.CharacterData.PlaytimeHours);
-                data.Add("playtime_minutes", this.CharacterData.PlaytimeMinutes);
-                data.Add("money", this.CharacterData.Money);
-                data.Add("bank", this.CharacterData.Bank);
-                data.Add("job_id", this.CharacterData.JobID);
-                data.Add("faction_id", this.CharacterData.FactionID);
-
-                Vector3 pos = this.player.position;
-                Vector3 rot = this.player.rotation;
-                data.Add("position_x", pos.X);
-                data.Add("position_y", pos.Y);
-                data.Add("position_z", pos.Z);
-                data.Add("rotation", pos.Z);
-
-                Utils.WebHelper.PostData("account/characters/save/" + this.CharacterData.Id, data.ToString());
+                this.SaveAccount();
             }
+
+            JObject data = new JObject();
+            data.Add("accountID", this.CharacterData.AccountId);
+            data.Add("characterID", this.CharacterData.Id);
+            Utils.WebHelper.PostData("account/offline", data.ToString());
 
             EntityManager.Remove(this);
         }
@@ -145,9 +155,11 @@ namespace SARoleplay.Player
                 player.invincible = false;
                 player.freezePosition = false;
                 player.nametagVisible = true;
+                player.healthbarVisible = false;
+                player.transparency = 255;
                 this.SelectedCharacter = true;
                 this.muted = false;
-                player.name = this.CharacterData.FirstName + "_" + this.CharacterData.LastName;
+                player.name = this.CharacterData.FirstName + " " + this.CharacterData.LastName;
             }
         }
     }

@@ -3,7 +3,7 @@ class CefHelper {
     path: string;
     open: boolean;
     local: boolean;
-    browser: GTANetwork.GUI.Browser;
+    browser: GrandTheftMultiplayer.Client.GUI.Browser;
 
     constructor(resourcePath: string, local?: boolean) {
         this.path = resourcePath;

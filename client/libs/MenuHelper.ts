@@ -2,6 +2,7 @@
 class MenuHelper {
     open: boolean;
     element: NativeUI.UIMenu;
+    selectedCallBack: Function;
     
     title: string;
     subtitle: string;
@@ -71,7 +72,7 @@ class MenuHelper {
         return temp;
     }
 
-    addListItem(label: string, description: string, list: string, index: number, callback?: Function) {
+    addListItem(label: string, description: string, list: System.Collections.Generic.List<string>, index: number, callback?: Function) {
         var temp = API.createListItem(label, description, list, index);
         this.element.AddItem(temp);
         if (callback != null)
