@@ -1,18 +1,18 @@
 ﻿/// <reference path="../types-gt-mp/Declarations.d.ts" />
 /// <reference path="../libs/MenuHelper.ts" />
 
-var CreationMenu = null;
-var FirstNameData = "";
-var LastNameData = "";
+var creationMenu = null;
+var firstNameData = "";
+var lastNameData = "";
 var genderData = 0;
 var parent1Data = 0;
 var parent2Data = 1;
 var hairStyleData = 1;
 var hairColorData = 0;
 
-API.onServerEventTrigger.connect(function (eventname, args) {
-    if (eventname == "player:character:creation:show") {
-        CreationMenu = new MenuHelper("Character Creation", "Create your character", 0, 0, 6, SelectedCallback);
+API.onServerEventTrigger.connect((eventname, args) => {
+    if (eventname === "player:character:creation:show") {
+        creationMenu = new MenuHelper("Character Creation", "Create your character", 0, 0, 6, SelectedCallback);
 
         var camera = API.createCamera(API.getEntityPosition(API.getLocalPlayer()), API.getEntityRotation(API.getLocalPlayer()));
         API.setCameraPosition(camera, new Vector3(245.4335, 217.0429, 106.2868));
@@ -21,43 +21,43 @@ API.onServerEventTrigger.connect(function (eventname, args) {
         API.setEntityPositionFrozen(API.getLocalPlayer(), true);
         API.setEntityRotation(API.getLocalPlayer(), new Vector3(0, 0, 0));
 
-        var FirstNameItem = CreationMenu.addMenuItem("First Name", "Select your first name");
-        var LastNameItem = CreationMenu.addMenuItem("Last Name", "Select your last name");
+        var firstNameItem = creationMenu.addMenuItem("First Name", "Select your first name");
+        var lastNameItem = creationMenu.addMenuItem("Last Name", "Select your last name");
 
-        var Gender = new List(String);
-        Gender.Add("Male");
-        Gender.Add("Female");
+        var gender = new List(String);
+        gender.Add("Male");
+        gender.Add("Female");
 
-        var GenderItem = CreationMenu.addListItem("Gender", "Male or Female", Gender, 0, onListItemChange);
+        var genderItem = creationMenu.addListItem("Gender", "Male or Female", gender, 0, onListItemChange);
 
-        var Parents = new List(String);
+        var parents = new List(String);
         for (var i = 0; i <= 45; i++) {
-            Parents.Add(i.toString());
+            parents.Add(i.toString());
         }
-        var Parent1Item = CreationMenu.addListItem("Parent 1", "First Parent", Parents, 0, onListItemChange);
-        var Parent2Item = CreationMenu.addListItem("Parent 2", "Second Parent", Parents, 1, onListItemChange);
+        var parent1Item = creationMenu.addListItem("Parent 1", "First Parent", parents, 0, onListItemChange);
+        var parent2Item = creationMenu.addListItem("Parent 2", "Second Parent", parents, 1, onListItemChange);
 
-        var HairStyles = new List(String);
-        HairStyles.Add("1");
-        HairStyles.Add("2");
-        HairStyles.Add("3");
-        HairStyles.Add("4");
-        HairStyles.Add("5");
-        var HairStyleItem = CreationMenu.addListItem("Hair Style", "Hair Style", HairStyles, 0, onListItemChange);
+        var hairStyles = new List(String);
+        hairStyles.Add("1");
+        hairStyles.Add("2");
+        hairStyles.Add("3");
+        hairStyles.Add("4");
+        hairStyles.Add("5");
+        var hairStyleItem = creationMenu.addListItem("Hair Style", "Hair Style", hairStyles, 0, onListItemChange);
 
-        var HairColors = new List(String);
+        var hairColors = new List(String);
         for (var i = 0; i <= 63; i++) {
-            HairColors.Add(i.toString());
+            hairColors.Add(i.toString());
         }
-        var HairColorItem = CreationMenu.addListItem("Hair Color", "Hair Color", HairColors, 0, onListItemChange);
+        var hairColorItem = creationMenu.addListItem("Hair Color", "Hair Color", hairColors, 0, onListItemChange);
 
-        var CompleteItem = CreationMenu.addMenuItem("Complete Character", "Finish creating your character");
-        CreationMenu.show();
+        var completeItem = creationMenu.addMenuItem("Complete Character", "Finish creating your character");
+        creationMenu.show();
 
         function onListItemChange(listItem, index) {
-            if (listItem == GenderItem) {
+            if (listItem === genderItem) {
                 API.sendChatMessage("Gender changed to " + ((index == 0) ? "Male" : "Female"));
-                if (index == 0) {
+                if (index === 0) {
                     API.setPlayerSkin(1885233650);
                 } else {
                     API.setPlayerSkin(-1667301416);
@@ -66,18 +66,18 @@ API.onServerEventTrigger.connect(function (eventname, args) {
 
                 genderData = index;
             }
-            else if (listItem == Parent1Item) {
+            else if (listItem === parent1Item) {
                 parent1Data = index;
             }
-            else if (listItem == Parent2Item) {
+            else if (listItem === parent2Item) {
                 parent2Data = index;
             }
-            else if (listItem == HairStyleItem) {
+            else if (listItem === hairStyleItem) {
                 var style = parseInt(index) + 1;
                 hairStyleData = style;
                 API.setPlayerClothes(API.getLocalPlayer(), 2, hairStyleData, 0);
             }
-            else if (listItem == HairColorItem) {
+            else if (listItem === hairColorItem) {
                 hairColorData = index;
                 API.callNative("_SET_PED_HAIR_COLOR", API.getLocalPlayer(), hairColorData, hairColorData);
             }
@@ -87,49 +87,49 @@ API.onServerEventTrigger.connect(function (eventname, args) {
         }
 
         function SelectedCallback(menu, item, index) {
-            if (item == FirstNameItem) {
+            if (item === firstNameItem) {
                 var valid = false;
                 while (!valid) {
                     valid = true;
-                    FirstNameData = API.getUserInput(FirstNameData, 16);
-                    if (FirstNameData.length < 2) {
+                    firstNameData = API.getUserInput(firstNameData, 16);
+                    if (firstNameData.length < 2) {
                         valid = false;
                         API.sendChatMessage("~r~ERROR: ~w~Minimum of 2 characters required!");
-                    } else if (FirstNameData.search(/[^a-zA-Z]+/) !== -1) {
+                    } else if (firstNameData.search(/[^a-zA-Z]+/) !== -1) {
                         valid = false;
                         API.sendChatMessage("~r~ERROR: ~w~Only A-Z characters are accepted (No symbols or spaces).");
-                    } else if (FirstNameData == LastNameData) {
+                    } else if (firstNameData == lastNameData) {
                         valid = false;
                         API.sendChatMessage("~r~ERROR: ~w~You must have different first and last name.");
                     }
                 }
-                FirstNameItem.Text = "First Name: " + FirstNameData;
+                firstNameItem.Text = "First Name: " + firstNameData;
             }
-            else if (item == LastNameItem) {
+            else if (item === lastNameItem) {
                 var valid = false;
                 while (!valid) {
                     valid = true;
-                    LastNameData = API.getUserInput(LastNameData, 16);
-                    if (LastNameData.length < 2) {
+                    lastNameData = API.getUserInput(lastNameData, 16);
+                    if (lastNameData.length < 2) {
                         valid = false;
                         API.sendChatMessage("~r~ERROR: ~w~Minimum of 2 characters required!");
-                    } else if (LastNameData.search(/[^a-zA-Z]+/) !== -1) {
+                    } else if (lastNameData.search(/[^a-zA-Z]+/) !== -1) {
                         valid = false;
                         API.sendChatMessage("~r~ERROR: ~w~Only A-Z characters are accepted (No symbols or spaces).");
-                    } else if (FirstNameData == LastNameData) {
+                    } else if (firstNameData == lastNameData) {
                         valid = false;
                         API.sendChatMessage("~r~ERROR: ~w~You must have different first and last name.");
                     }
                 }
-                LastNameItem.Text = "Last Name: " + LastNameData;
+                lastNameItem.Text = "Last Name: " + lastNameData;
             }
-            else if (item == CompleteItem) {
-                if (FirstNameData == "" || LastNameData == "") {
+            else if (item === completeItem) {
+                if (firstNameData == "" || lastNameData == "") {
                     API.sendChatMessage("~r~ERROR: ~w~You must have a first and last name.");
                 } else {
                     var data = {
-                        "firstname": FirstNameData,
-                        "lastname": LastNameData,
+                        "firstname": firstNameData,
+                        "lastname": lastNameData,
                         "gender": genderData,
                         "parent1": parent1Data,
                         "parent2": parent2Data,
@@ -142,7 +142,7 @@ API.onServerEventTrigger.connect(function (eventname, args) {
             }
         }
     }
-    else if (eventname == "player:character:creation:hide") {
-        CreationMenu.hide();
+    else if (eventname === "player:character:creation:hide") {
+        creationMenu.hide();
     }
 });

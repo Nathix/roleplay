@@ -21,8 +21,8 @@ var rotations = [
     -72.5
 ];
 
-API.onServerEventTrigger.connect(function (eventname, args) {
-    if (eventname == "player:character:selection:show") {
+API.onServerEventTrigger.connect((eventname, args) => {
+    if (eventname === "player:character:selection:show") {
         var cam = API.createCamera(new Vector3(254.7309, 216.7014, 112.00), new Vector3(0, 0, 0));
         API.pointCameraAtPosition(cam, new Vector3(253.4211, 213.1638, 106.2869));
         API.setActiveCamera(cam);
@@ -30,7 +30,7 @@ API.onServerEventTrigger.connect(function (eventname, args) {
         selectingCharacter = true;
         API.showCursor(true);
     }
-    else if (eventname == "player:character:selection:data") {
+    else if (eventname === "player:character:selection:data") {
         var data = JSON.parse(args[0]);
 
         for (var i = 0; i < data.length; i++) {
@@ -43,7 +43,7 @@ API.onServerEventTrigger.connect(function (eventname, args) {
         if (data.length < 2) ped2 = API.createPed(-407694286, positions[1], rotations[1]);
         if (data.length < 3) ped3 = API.createPed(-407694286, positions[2], rotations[2]);
     }
-    else if (eventname == "player:character:selection:hide") {
+    else if (eventname === "player:character:selection:hide") {
         selectionActive = false;
         selectingCharacter = false;
         API.showCursor(false);
@@ -63,14 +63,14 @@ API.onServerEventTrigger.connect(function (eventname, args) {
     }
 });
 
-API.onUpdate.connect(function () {
+API.onUpdate.connect(() => {
     if (!selectionActive) return false;
     var cursor = API.getCursorPosition();
 
     if (lastCharacter != null) {
         if (peds[lastCharacterValue] != null) {
             var str = "~g~Name: ~w~" + peds[lastCharacterValue].firstname + " " + peds[lastCharacterValue].lastname;
-            if (peds[lastCharacterValue].faction_id != 0) str += "~n~~g~Faction: ~w~Yes";
+            if (peds[lastCharacterValue].faction_id !== 0) str += "~n~~g~Faction: ~w~Yes";
             str += "~n~~g~Money: ~w~" + (parseInt(peds[lastCharacterValue].money) + parseInt(peds[lastCharacterValue].bank)) + " $";
             if (peds[lastCharacterValue].last_online_date != null) str += "~n~~g~Last Online: ~w~" + peds[lastCharacterValue].last_online_date;
             if (peds[lastCharacterValue].last_online_date == null) str += "~n~~g~Last Online: ~w~Never";
@@ -83,27 +83,27 @@ API.onUpdate.connect(function () {
     }
 
     if (selectingCharacter) {
-		var cursOp = API.getCursorPositionMaintainRatio();
+        var cursOp = API.getCursorPositionMaintainRatio();
         var s2w = API.screenToWorldMaintainRatio(cursOp);
         var rayCast = API.createRaycast(new Vector3(254.7309, 216.7014, 112.00), s2w, 4 | 8 | 12, null);
-		var localH = null;
-		var localV = 0;
+        var localH = null;
+        var localV = 0;
         if (rayCast.didHitEntity) {
             localH = rayCast.hitEntity;
-			localV = localH.Value;
-		}
+            localV = localH.Value;
+        }
 
-        if (localV != lastCharacterValue && localH != null) {
-            if (localH != null) API.setEntityTransparency(localH, 255);
+        if (localV !== lastCharacterValue && localH != null) {
             if (lastCharacter != null) API.setEntityTransparency(lastCharacter, 120);
+            API.setEntityTransparency(localH, 255);
             lastCharacter = localH;
             lastCharacterValue = localV;
         }
-	}
+    }
 });
 
 
-API.onKeyDown.connect(function (sender, e) {
+API.onKeyDown.connect((sender, e) => {
     if (!selectionActive) return false;
     if (e.KeyCode == Keys.Space) {
         if (lastCharacterValue != null) {

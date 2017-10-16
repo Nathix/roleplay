@@ -1,7 +1,7 @@
 ﻿/// <reference path="types-gt-mp/Declarations.d.ts" />
-/// <reference path="libs/CefHelper.ts" />
 
 /*
+// <reference path="libs/CefHelper.ts" />
 var rtcCef = null;
 
 API.onResourceStart.connect(function () {

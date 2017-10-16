@@ -21,16 +21,14 @@ class MenuHelper {
         this.element = API.createMenu(title, subtitle, x, y, anchor);
         this.element.ResetKey(menuControl.Back);
         this.element.Visible = true;
-        
-        var self = this;
-        API.onUpdate.connect(function () {
+        API.onUpdate.connect(() => {
             // Oh yeah.. this becomes the function local variable, not class..
-            if (self.element != null && self.open == true) {
-                API.drawMenu(self.element);
+            if (this.element != null && this.open == true) {
+                API.drawMenu(this.element);
             }
         });
         
-        this.element.OnItemSelect.connect(function (menu, item, index) {
+        this.element.OnItemSelect.connect((menu, item, index) => {
             if (callback != null)
                 callback(menu, item, index);
         });
@@ -76,7 +74,7 @@ class MenuHelper {
         var temp = API.createListItem(label, description, list, index);
         this.element.AddItem(temp);
         if (callback != null)
-            temp.OnListChanged.connect(function (listItem, newIndex) { callback(listItem, newIndex); });
+            temp.OnListChanged.connect((listItem, newIndex) => { callback(listItem, newIndex); });
         this.element.RefreshIndex();
         return temp;
     }
