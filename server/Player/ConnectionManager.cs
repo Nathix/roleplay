@@ -48,6 +48,9 @@ namespace SARoleplay.Player
 
             API.triggerClientEvent(player, "player:camera:interpolate", _camTime, _startCamPos, _endCamPos, _startCamRot, _endCamRot);
             API.triggerClientEvent(player, "player:login:show");
+
+            Utils.ChatHelper.SendCustomMessage(player, "Welcome to San Andreas Roleplay");
+            Utils.ChatHelper.SendInformationMessage(player, "Please /login or register at SA-ROLEPLAY.COM");
         }
 
         public void OnPlayerDisconnected(Client player, string reason)
@@ -57,72 +60,7 @@ namespace SARoleplay.Player
 
         public void OnClientEventTrigger(Client player, string eventName, params object[] arguments)
         {
-            if(eventName == "player:login:process")
-            {
-                Dictionary<string, string> data = new Dictionary<string, string>();
-                data.Add("username", arguments[0].ToString());
-                data.Add("password", arguments[1].ToString());
-                data.Add("scname", player.socialClubName);
-                data.Add("ip", player.address);
-                string result = Utils.WebHelper.PostData("account/login", data);
-                JObject test = JObject.Parse(result);
-
-                if(test != null)
-                {
-                    if(test.Value<string>("status") == "error")
-                    {
-                        Utils.ChatHelper.SendErrorMessage(player, test.Value<string>("message"));
-                    }
-                    else if(test.Value<string>("status") == "success")
-                    {
-                        PlayerController playerController = EntityManager.GetPlayerFromClient(player);
-                        if (playerController != null)
-                        {
-                            JObject accountData = test.Value<JObject>("data");
-                            Utils.ChatHelper.SendSuccessMessage(player, "Welcome back " + accountData.Value<string>("social_club_name") + "!");
-                            API.triggerClientEvent(player, "player:camera:stop");
-                            API.triggerClientEvent(player, "player:login:hide");
-                            API.triggerClientEvent(player, "player:character:selection:show");
-
-                            playerController.AccountData.Id = accountData.Value<int>("id");
-                            playerController.AccountData.ForumId = accountData.Value<int>("forum_id");
-                            playerController.AccountData.SocialClubName = accountData.Value<string>("social_club_name");
-                            playerController.AccountData.IP = player.address;
-                            playerController.AccountData.RegisteredDate = accountData.Value<string>("registered_date");
-                            playerController.AccountData.LastOnlineDate = accountData.Value<string>("last_online_date");
-                            playerController.AccountData.Online = true;
-                            playerController.AccountData.Admin = accountData.Value<Boolean>("admin");
-                            playerController.AccountData.Support = accountData.Value<Boolean>("support");
-                            playerController.AccountData.AdminName = accountData.Value<string>("admin_name");
-                            playerController.LoggedIn = true;
-                            //player.collisionless = false;
-                            //player.invincible = false;
-                            //player.freezePosition = false;
-
-                            var charData = Utils.WebHelper.GetData("account/characters/get/" + playerController.AccountData.Id);
-                            API.triggerClientEvent(player, "player:character:selection:data", charData);
-
-                        }
-                        else
-                        {
-                            // This should be impossible but just incase.
-                            Console.WriteLine("Couldn't find a player controller for player " + player.name + " ~ " + player.socialClubName);
-                            player.kick("Unknown error occured.");
-                        }
-                    }
-                    else
-                    {
-                        // This should be impossible but just incase.
-                        Utils.ChatHelper.SendErrorMessage(player, "Unknown error occurred.");
-                    }
-                }
-                else
-                {
-                    Utils.ChatHelper.SendErrorMessage(player, "Invalid username / password! Please try again.");
-                }
-                API.triggerClientEvent(player, "player:login:reset");
-            }
-            else if(eventName == "player:character:selection:selected")
+            if(eventName == "player:character:selection:selected")
             {
                 PlayerController playerController = EntityManager.GetPlayerFromClient(player);
                 if (playerController != null)

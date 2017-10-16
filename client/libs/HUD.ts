@@ -39,16 +39,16 @@ class HUD {
 
                 switch(this.getVehicleClass)  {
                     case 14: case 15: case 16: //boat, planes, helicopters
-                        API.drawText(this.speedInKnots.toString(), 345, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-                        API.drawText("Knt", 470, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                        API.drawText(this.speedInKnots.toString(), 345, 950, 0.5, 255, 255, 255, 255, 4, 0, false, false, 0);
+                        API.drawText("Knt", 470, 950, 0.5, 255, 255, 255, 255, 4, 0, false, false, 0);
                         break;
                     default: //Everything else
-                        API.drawText(this.speedInMph.toString(), 345, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-                        API.drawText("MPH", 470, 950, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                        API.drawText(this.speedInMph.toString(), 345, 950, 0.5, 255, 255, 255, 255, 4, 0, false, false, 0);
+                        API.drawText("MPH", 470, 950, 0.5, 255, 255, 255, 255, 4, 0, false, false, 0);
                         break;
                 }
-                API.drawText(this.getVehicleHealth.toString(), 345, 1000, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
-                API.drawText("% health", 470, 1000, 1, 255, 255, 255, 255, 4, 0, false, false, 0);
+                API.drawText(this.getVehicleHealth.toString(), 345, 1000, 0.5, 255, 255, 255, 255, 4, 0, false, false, 0);
+                API.drawText("% health", 470, 1000, 0.5, 255, 255, 255, 255, 4, 0, false, false, 0);
             }
         }
     }

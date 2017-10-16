@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Businesses\BusinessController.cs" />
+    <Compile Include="Commands\AccountCommands.cs" />
     <Compile Include="Data\Business.cs" />
     <Compile Include="Data\Character.cs" />
     <Compile Include="Data\Faction.cs" />

@@ -2,8 +2,8 @@
 
 API.onServerEventTrigger.connect((name, args) => {
     if (name === "player:camera:interpolate") {
-        var startCamera = API.createCamera(args[1], args[3]);
-        var endCamera = API.createCamera(args[2], args[4]);
+        const startCamera = API.createCamera(args[1], args[3]);
+        const endCamera = API.createCamera(args[2], args[4]);
 
         API.interpolateCameras(startCamera, endCamera, args[0], true, true);
     }

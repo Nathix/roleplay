@@ -22,8 +22,9 @@ namespace SARoleplay
 
         public WebRTC()
         {
-            Thread thread = new Thread(new ThreadStart(WebRTCServer));
-            thread.Start();
+            // Don't need WebRTC for now!
+            //Thread thread = new Thread(new ThreadStart(WebRTCServer));
+            //thread.Start();
         }
         
         public void WebRTCServer()
