@@ -53,6 +53,16 @@ namespace SARoleplay
             return Players.Where(x => x.player == player).ToList<PlayerController>()[0];
         }
 
+        public static PlayerController GetPlayerFromAccountId(int id)
+        {
+            return Players.Where(x => x.AccountData.Id == id).ToList<PlayerController>()[0];
+        }
+
+        public static PlayerController GetPlayerFromCharacterId(int id)
+        {
+            return Players.Where(x => x.CharacterData.Id == id).ToList<PlayerController>()[0];
+        }
+
         /* Vehicle Entity Functions */
         public static void Add(VehicleController vehicle)
         {
@@ -67,6 +77,16 @@ namespace SARoleplay
         public static List<VehicleController> GetVehicleControllers()
         {
             return Vehicles;
+        }
+
+        public static VehicleController GetVehicleFromHandle(Vehicle vehicle)
+        {
+            return Vehicles.Where(x => x.vehicle == vehicle).ToList<VehicleController>()[0];
+        }
+
+        public static VehicleController GetVehicleFromId(int id)
+        {
+            return Vehicles.Where(x => x.VehicleData.Id == id).ToList<VehicleController>()[0];
         }
 
         /* House Entity Functions */
@@ -85,6 +105,11 @@ namespace SARoleplay
             return Houses;
         }
 
+        public static HouseController GetHouseFromId(int id)
+        {
+            return Houses.Where(x => x.HouseData.Id == id).ToList<HouseController>()[0];
+        }
+
         /* Faction Entity Functions */
         public static void Add(FactionController faction)
         {
@@ -101,6 +126,11 @@ namespace SARoleplay
             return Factions;
         }
 
+        public static FactionController GetFactionFromId(int id)
+        {
+            return Factions.Where(x => x.FactionData.Id == id).ToList<FactionController>()[0];
+        }
+
         /* Business Entity Functions */
         public static void Add(BusinessController business)
         {
@@ -115,6 +145,11 @@ namespace SARoleplay
         public static List<BusinessController> GetBusinessControllers()
         {
             return Businesses;
+        }
+
+        public static BusinessController GetBusinessFromId(int id)
+        {
+            return Businesses.Where(x => x.BusinessData.Id == id).ToList<BusinessController>()[0];
         }
     }
 }
