@@ -1,6 +1,6 @@
 
 /*
-/// <reference path="index.d.ts" />
+/// <reference path="Definitions\index.d.ts" />
 declare const API: GrandTheftMultiplayer.Client.Javascript.ScriptContext;
 declare const host: Microsoft.ClearScript.HostFunctions;
 import Keys = System.Windows.Forms.Keys;
